@@ -1,0 +1,184 @@
+# Modify the code to update the DB schema diagram.
+# To reset the sample schema, replace everything with
+# two dots ('..' - without quotes).
+
+# Master list mapping instance UIDs to the tables that contain
+# modality-specific attributes, and also contains attributes that are
+# common across modalities
+CompositeContext
+-
+SOPClassUID
+SOPInstanceUID PK
+SeriesInstanceUID
+StudyDate
+SeriesDate
+StudyTime
+SeriesTime
+Modality
+StudyDescription
+SeriesDescription
+PatientName
+PatientID
+PatientSex
+PatientAge
+PatientWeight
+BodyPartExamined
+ManufacturerModelName
+SoftwareVersions
+
+# PT-specific attrubutes (all top-level)
+PT
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SliceThickness
+ImagePositionPatient
+ImageOrientationPatient
+FrameOfReferenceUID
+Rows
+Columns
+PixelSpacing
+ReconstructionMethod
+ConvolutionKernel
+
+# CT-specific attributes (all top-level)
+CT
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SliceThickness
+ImagePositionPatient
+ImageOrientationPatient
+FrameOfReferenceUID
+Rows
+Columns
+PixelSpacing
+ReconstructionDiameter
+DistanceSourceToDetector
+DistanceSourceToPatient
+RotationDirection
+ExposureTime
+XRayTubeCorrection
+Exposure
+FilterType
+GeneratorPower
+FocalSpots
+ConvolutionKernel
+
+# Flattened (selectively)
+#  ReferencedImageRealWorldValueMappingSequence
+RWV
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+#
+Units-CodeValue
+Units-CodingScheme
+Units-CodeMeaning
+Quantity-CodeValue
+Quantity-CodingSchemeDesignator
+Quantity-CodeMeaning
+MeasurementMethod-CodeValue
+MeasurementMethod-CodingSchemeDesignator
+MeasurementMethod-CodeMeaning
+RealWorldValueIntercept
+RealWorldValueSlope
+
+# SEG-specific attributes (all top-level)
+SEG
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+NumberOfFrames
+Rows
+Columns
+SegmentationType
+ContentCreatorName
+
+# SR-specific attributes
+SR
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+TemplateIdentifier
+CompletionFlag
+VerificationFlag
+# the following are concepts mapped to column names, and values extracted from the
+#  SR tree. This is not generic and will not work for an arbitrary SR that does not
+#  conform to TID 1500
+PersonObserverName # <has obs context PNAME:(,,"Person Observer Name")="User2">
+ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
+
+# Flattened selected content of SegmentSequence
+Segments
+-
+SOPInstanceUID FK -< SEG.SOPInstanceUID
+SegmentNumber
+SegmentAlgorithmType
+SegmentAlgorithmName
+SegmentLabel
+AnatomicRegionSequence-Code
+AnatomicRegionSequence-CodingScheme
+AnatomicRegionSequence-CodeMeaning
+SegmentedPropertyCategory-Code
+SegmentedPropertyCategory-CodingScheme
+SegmentedPropertyCategory-CodeMeaning
+SegmentedPropertyType-Code
+SegmentedPropertyType-CodingScheme
+SegmentedPropertyType-CodeMeaning
+
+# Flattened selected content of SharedFunctionalGroupsSequence
+#  and PerFrameFunctionalGroupsSequence
+SegmentFrames
+-
+SOPInstanceUID FK -< Segments.SOPInstanceUID
+SegmentNumber FK -< Segments.SegmentNumber
+SliceThickness
+SpacingBetweenSlices
+PixelSpacing
+ImagePositionPatient
+ImageOrientationPatient
+ReferencedSOPInstanceUID
+ReferencedSOPClassUID
+
+# Flattened (selectively) from the Measurements groups container
+#  of TID 1500 documents
+MeasurementGroups
+-
+SOPInstanceUID FK -< SR.SOPInstanceUID
+ActivitySession
+TrackingIdentifier
+TrackingUniqueIdentifier PK
+Finding-Code
+Finding-CodingScheme
+Finding-CodeMeaning
+TimePoint
+FindingSite-Code
+FindingSite-CodingScheme
+FindingSite-CodeMeaning
+MeasurementMethod-Code
+MeasurementMethod-CodingScheme
+MeasurementMethod-Meaning
+
+# Individual measurements from the measurement groups
+Measurements
+-
+SOPInstanceUID FK -< MeasurementGroups.SOPInstanceUID
+TrackingUniqueIdentifier FK -< MeasurementGroups.TrackingUniqueIdentifier
+Quantity-Code
+Quantity-CodingScheme
+Quantity-CodeMeaning
+Value
+Derivation-Code
+Derivation-CodingScheme
+Derivation-Meaning
+MeasurementMethod-Code
+MeasurementMethod-CodingScheme
+MeasurementMethod-Meaning
+
+
+# Flattened content of the
+# ReferencedSeriesSequence from
+#  the object types that contain it
+# These are instances pointed to from the given instance
+References
+-
+SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+ReferencedSOPClassUID string # to
+ReferencedSOPInstanceUID string
+SeriesInstanceUID string
