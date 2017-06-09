@@ -3,29 +3,47 @@ from QDBDParser import QDBDParser
 from DICOMParser import DICOMParser
 import json
 
+# Inputs:
+#  #1 - DB schema file from https://app.quickdatabasediagrams.com
+#    (remove all layout components from the bottom if exporting
+#    from the web, or use the included in the repo schema.qdbd)
+#  #2 - directory with the files from TCIA QIN-HEADNECK collection
+#
+# Output: one csv file per table defined in the schema
+#  attributes not found will be empty!
+
 def main():
 
   tablesParser = QDBDParser(sys.argv[1])
   tablesRules = tablesParser.getTablesSchema()
-  print json.dumps(tablesRules, indent=2)
 
   tables = {}
   for t in tablesRules.keys():
-    tables[t] = pandas.DataFrame(columns=tablesRules[t])
+    tables[t] = []
 
-  dicomParser = DICOMParser(sys.argv[2], tablesRules)
-  dicomParser.parse()
-  dicomTables = dicomParser.getTables()
+  for root,dirs,files in os.walk(sys.argv[2]):
+    for f in files:
+      dcmName = os.path.join(root,f)
+      try:
+        dicomParser = DICOMParser(dcmName, tablesRules)
+      except:
+        continue
 
-  for t in dicomTables:
-    print "Appending", dicomTables[t].values
-    print dicomTables[t]
-    tables[t] = pandas.DataFrame([dicomTables[t]])
+      dicomParser.parse()
+      dcmFileTables = dicomParser.getTables()
 
+      for t in dcmFileTables:
+        # print "Appending", dcmFileTables[t].values
+        # print dicomTables[t]
+        tables[t].append(dcmFileTables[t])
 
-  print "DICOM tables:"
-  for t in tablesRules.keys():
-    print tables[t].to_string()
+  for t in tables.keys():
+    if len(tables[t]):
+      tables[t] = pandas.DataFrame(tables[t])
+
+  for t in tables.keys():
+    if type(tables[t]) == pandas.DataFrame:
+      tables[t].to_csv(t+".csv")
 
 if __name__ == '__main__':
   main()

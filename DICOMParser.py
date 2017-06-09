@@ -18,7 +18,6 @@ class DICOMParser:
     self.readTopLevelAttributes("CompositeContext")
 
     if self.dcm.Modality in ["SR","PT","CT","SEG","RWV"]:
-      print "Parsing table",self.dcm.Modality
       self.readTopLevelAttributes(self.dcm.Modality)
 
   def readTopLevelAttributes(self,tableName):
