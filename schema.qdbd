@@ -29,7 +29,7 @@ SoftwareVersions
 # PT-specific attrubutes (all top-level)
 PT
 -
-SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 SliceThickness
 ImagePositionPatient
 ImageOrientationPatient
@@ -43,7 +43,7 @@ ConvolutionKernel
 # CT-specific attributes (all top-level)
 CT
 -
-SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 SliceThickness
 ImagePositionPatient
 ImageOrientationPatient
@@ -56,7 +56,7 @@ DistanceSourceToDetector
 DistanceSourceToPatient
 RotationDirection
 ExposureTime
-XRayTubeCorrection
+XRayTubeCurrent
 Exposure
 FilterType
 GeneratorPower
@@ -67,24 +67,24 @@ ConvolutionKernel
 #  ReferencedImageRealWorldValueMappingSequence
 RWV
 -
-SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 #
-Units-CodeValue
-Units-CodingScheme
-Units-CodeMeaning
-Quantity-CodeValue
-Quantity-CodingSchemeDesignator
-Quantity-CodeMeaning
-MeasurementMethod-CodeValue
-MeasurementMethod-CodingSchemeDesignator
-MeasurementMethod-CodeMeaning
+Units_CodeValue
+Units_CodingSchemeDesignator
+Units_CodeMeaning
+Quantity_CodeValue
+Quantity_CodingSchemeDesignator
+Quantity_CodeMeaning
+MeasurementMethod_CodeValue
+MeasurementMethod_CodingSchemeDesignator
+MeasurementMethod_CodeMeaning
 RealWorldValueIntercept
 RealWorldValueSlope
 
 # SEG-specific attributes (all top-level)
 SEG
 -
-SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 NumberOfFrames
 Rows
 Columns
@@ -94,7 +94,7 @@ ContentCreatorName
 # SR-specific attributes
 SR
 -
-SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 TemplateIdentifier
 CompletionFlag
 VerificationFlag
@@ -107,27 +107,27 @@ ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
 # Flattened selected content of SegmentSequence
 Segments
 -
-SOPInstanceUID FK -< SEG.SOPInstanceUID
+SOPInstanceUID FK >- SEG.SOPInstanceUID
 SegmentNumber
 SegmentAlgorithmType
 SegmentAlgorithmName
 SegmentLabel
-AnatomicRegionSequence-Code
-AnatomicRegionSequence-CodingScheme
-AnatomicRegionSequence-CodeMeaning
-SegmentedPropertyCategory-Code
-SegmentedPropertyCategory-CodingScheme
-SegmentedPropertyCategory-CodeMeaning
-SegmentedPropertyType-Code
-SegmentedPropertyType-CodingScheme
-SegmentedPropertyType-CodeMeaning
+AnatomicRegionSequence_Code
+AnatomicRegionSequence_CodingSchemeDesignator
+AnatomicRegionSequence_CodeMeaning
+SegmentedPropertyCategory_Code
+SegmentedPropertyCategory_CodingSchemeDesignator
+SegmentedPropertyCategory_CodeMeaning
+SegmentedPropertyType_Code
+SegmentedPropertyType_CodingSchemeDesignator
+SegmentedPropertyType_CodeMeaning
 
 # Flattened selected content of SharedFunctionalGroupsSequence
 #  and PerFrameFunctionalGroupsSequence
 SegmentFrames
 -
-SOPInstanceUID FK -< Segments.SOPInstanceUID
-SegmentNumber FK -< Segments.SegmentNumber
+SOPInstanceUID FK >- Segments.SOPInstanceUID
+SegmentNumber FK >- Segments.SegmentNumber
 SliceThickness
 SpacingBetweenSlices
 PixelSpacing
@@ -140,36 +140,36 @@ ReferencedSOPClassUID
 #  of TID 1500 documents
 MeasurementGroups
 -
-SOPInstanceUID FK -< SR.SOPInstanceUID
+SOPInstanceUID FK >- SR.SOPInstanceUID
 ActivitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
-Finding-Code
-Finding-CodingScheme
-Finding-CodeMeaning
+Finding_Code
+Finding_CodingSchemeDesignator
+Finding_CodeMeaning
 TimePoint
-FindingSite-Code
-FindingSite-CodingScheme
-FindingSite-CodeMeaning
-MeasurementMethod-Code
-MeasurementMethod-CodingScheme
-MeasurementMethod-Meaning
+FindingSite_Code
+FindingSite_CodingSchemeDesignator
+FindingSite_CodeMeaning
+MeasurementMethod_Code
+MeasurementMethod_CodingSchemeDesignator
+MeasurementMethod_Meaning
 
 # Individual measurements from the measurement groups
 Measurements
 -
-SOPInstanceUID FK -< MeasurementGroups.SOPInstanceUID
-TrackingUniqueIdentifier FK -< MeasurementGroups.TrackingUniqueIdentifier
-Quantity-Code
-Quantity-CodingScheme
-Quantity-CodeMeaning
+SOPInstanceUID FK >- MeasurementGroups.SOPInstanceUID
+TrackingUniqueIdentifier FK >- MeasurementGroups.TrackingUniqueIdentifier
+Quantity_Code
+Quantity_CodingSchemeDesignator
+Quantity_CodeMeaning
 Value
-Derivation-Code
-Derivation-CodingScheme
-Derivation-Meaning
-MeasurementMethod-Code
-MeasurementMethod-CodingScheme
-MeasurementMethod-Meaning
+Derivation_Code
+Derivation_CodingSchemeDesignator
+Derivation_Meaning
+MeasurementMethod_Code
+MeasurementMethod_CodingSchemeDesignator
+MeasurementMethod_Meaning
 
 
 # Flattened content of the

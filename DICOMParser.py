@@ -39,11 +39,49 @@ class DICOMParser:
         unresolvedAttributes.append(a)
         self.tables[modality][a] = None
 
-      # self.readUnresolvedAttributes()
+      for a in unresolvedAttributes:
+        if hasattr(self,"read"+modality+a):
+          self.tables[modality][a] = getattr(self, "read%s%s" % (modality, a) )()
 
       #print self.tables[tableName][a]
 
-  # this part is not driven by the QDBD schema!
+  # functions to read specific attributes that are not top-level or that are SR #   tree elements
+  #def readReferencedImageRealWorldValueMappingSequence(self):
+  #  de = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence")
+  #  if de:
+  #    de = de.data_element("RealWorldValueMappingSequence")
+  #    if de:
+
+  # given the input data element, which must be a SQ, and must have the structure
+  #  of items that follow the pattern ConceptNameCodeSequence/ConceptCodeSequence, find the sequence item that has
+  #  ConceptNameCodeSequence > CodeMeaning, and return the data element corresponding
+  #  to the ConceptCodeSequnce matching the requested ConceptNameCodeSequence meaning
+  def getConceptCodeByConceptNameMeaning(self,dataElement,conceptNameMeaning):
+    for item in dataElement.value:
+      if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
+        return item.ConceptCodeSequence[0]
+    return None
+
+  def getMeasurementUnitsCodeSequence(self):
+    dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("RealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("MeasurementUnitsCodeSequence").value
+    return dataElement
+
+  def readRWVUnits_CodeValue(self):
+    dataElement = self.getMeasurementUnitsCodeSequence()[0]
+    return dataElement.CodeValue
+
+  def readRWVUnits_CodingSchemeDesignator(self):
+    dataElement = self.getMeasurementUnitsCodeSequence()[0]
+    return dataElement.CodingSchemeDesignator
+
+  def readRWVUnits_CodeMeaning(self):
+    dataElement = self.getMeasurementUnitsCodeSequence()[0]
+    return dataElement.CodeMeaning
+
+  # this part is not driven at all by the QDBD schema!
+  #  (maybe it should be changed to generalize things better)
   def readReferences(self):
     self.tables["References"] = []
     refSeriesSeq = self.dcm.data_element("ReferencedSeriesSequence")
