@@ -1,9 +1,9 @@
-import dicom, os, sys
+import pydicom, os, sys
 
 class DICOMParser:
   def __init__(self,fileName,rulesDictionary):
     try:
-      self.dcm = dicom.read_file(fileName)
+      self.dcm = pydicom.read_file(fileName)
     except:
       print "Failed to read input DICOM!"
 
@@ -39,9 +39,14 @@ class DICOMParser:
         unresolvedAttributes.append(a)
         self.tables[modality][a] = None
 
-      for a in unresolvedAttributes:
-        if hasattr(self,"read"+modality+a):
-          self.tables[modality][a] = getattr(self, "read%s%s" % (modality, a) )()
+    for a in unresolvedAttributes:
+      if hasattr(self,"read"+modality+a):
+         resolvedAttribute = str(getattr(self, "read%s%s" % (modality, a) )())
+         self.tables[modality][a] = resolvedAttribute
+         if resolvedAttribute is not None:
+           print "Successfully resolved",a
+         else:
+           print "Failed to resolve",a
 
       #print self.tables[tableName][a]
 
@@ -57,7 +62,7 @@ class DICOMParser:
   #  ConceptNameCodeSequence > CodeMeaning, and return the data element corresponding
   #  to the ConceptCodeSequnce matching the requested ConceptNameCodeSequence meaning
   def getConceptCodeByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    for item in dataElement.value:
+    for item in dataElement:
       if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
         return item.ConceptCodeSequence[0]
     return None
@@ -66,6 +71,12 @@ class DICOMParser:
     dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
     dataElement = dataElement.data_element("RealWorldValueMappingSequence").value[0]
     dataElement = dataElement.data_element("MeasurementUnitsCodeSequence").value
+    return dataElement
+
+  def getQuantityDefinitionSequence(self):
+    dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("RealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("QuantityDefinitionSequence").value
     return dataElement
 
   def readRWVUnits_CodeValue(self):
@@ -79,6 +90,46 @@ class DICOMParser:
   def readRWVUnits_CodeMeaning(self):
     dataElement = self.getMeasurementUnitsCodeSequence()[0]
     return dataElement.CodeMeaning
+
+  def readRWVQuantity_CodeValue(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Quantity")
+    return dataElement.CodeValue
+
+  def readRWVQuantity_CodingSchemeDesignator(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Quantity")
+    return dataElement.CodingSchemeDesignator
+
+  def readRWVQuantity_CodeMeaning(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Quantity")
+    return dataElement.CodeMeaning
+
+  def readRWVMeasurementMethod_CodeValue(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Measurement Method")
+    return dataElement.CodeValue
+
+  def readRWVMeasurementMethod_CodingSchemeDesignator(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Measurement Method")
+    return dataElement.CodingSchemeDesignator
+
+  def readRWVMeasurementMethod_CodeMeaning(self):
+    dataElement = self.getQuantityDefinitionSequence()
+    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement, "Measurement Method")
+    return dataElement.CodeMeaning
+
+  def readRWVRealWorldValueIntercept(self):
+    dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("RealWorldValueMappingSequence").value[0]
+    return dataElement.RealWorldValueIntercept
+
+  def readRWVRealWorldValueSlope(self):
+    dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
+    dataElement = dataElement.data_element("RealWorldValueMappingSequence").value[0]
+    return dataElement.RealWorldValueSlope
 
   # this part is not driven at all by the QDBD schema!
   #  (maybe it should be changed to generalize things better)

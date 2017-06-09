@@ -38,11 +38,9 @@ def main():
         tableOrRow = dcmFileTables[t]
         if isinstance(tableOrRow,dict):
           tables[t].append(tableOrRow)
-          print "Added",tableOrRow
         elif isinstance(tableOrRow,list):
           for row in tableOrRow:
             tables[t].append(row)
-            print "Added",row
 
   for t in tables.keys():
     if len(tables[t]):
