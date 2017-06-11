@@ -135,8 +135,22 @@ class DICOMParser:
   #  (maybe it should be changed to generalize things better)
   def readReferences(self):
     self.tables["References"] = []
-    refSeriesSeq = self.dcm.data_element("ReferencedSeriesSequence")
-    for r in refSeriesSeq:
+    try:
+      refSeriesSeq = self.dcm.data_element("ReferencedSeriesSequence")
+    except:
+      refSeriesSeq = None
+    try:
+      evidenceSeq = self.dcm.data_element("CurrentRequestedProcedureEvidenceSequence")
+    except:
+      evidenceSeq = None
+      
+    if refSeriesSeq:
+      self.readReferencedSeriesSequence(refSeriesSeq)
+    if evidenceSeq:
+      self.readEvidenceSequence(evidenceSeq)
+
+  def readReferencedSeriesSequence(self, seq):
+    for r in seq:
       seriesUID = r.data_element("SeriesInstanceUID").value
       refInstancesSeq = r.data_element("ReferencedInstanceSequence").value
       for i in refInstancesSeq:
@@ -144,3 +158,16 @@ class DICOMParser:
         refInstanceUID = i.ReferencedSOPInstanceUID
 
         self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
+
+
+  def readEvidenceSequence(self, seq):
+    for l1item in seq:
+      seriesSeq = l1item.data_element("ReferencedSeriesSequence").value
+      for l2item in seriesSeq:
+        sopSeq = l2item.data_element("ReferencedSOPSequence").value
+        seriesUID = l2item.SeriesInstanceUID
+        for l3item in sopSeq:
+          refClassUID = l3item.ReferencedSOPClassUID
+          refInstanceUID = l3item.ReferencedSOPInstanceUID
+
+          self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
