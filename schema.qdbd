@@ -10,6 +10,7 @@ CompositeContext
 SOPClassUID
 SOPInstanceUID PK
 SeriesInstanceUID
+StudyInstanceUID
 StudyDate
 SeriesDate
 StudyTime
