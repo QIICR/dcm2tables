@@ -2,14 +2,18 @@ import pydicom, os, sys
 
 class DICOMParser:
   def __init__(self,fileName,rulesDictionary):
+    self.fileName = fileName
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
       print "Failed to read input DICOM!"
 
     self.rulesDictionary = rulesDictionary
+    # modalities that will be recognized by the script
+    self.modalitiesRecognized = ["SR","PT","CT","SEG","RWV"]
 
     self.tables = {}
+    self.unresolvedAttributes = {}
 
   def getTables(self):
     return self.tables
@@ -18,12 +22,32 @@ class DICOMParser:
     self.readTopLevelAttributes("CompositeContext")
     self.readReferences()
 
-    if self.dcm.Modality in ["SR","PT","CT","SEG","RWV"]:
+    if self.dcm.Modality in modalitiesRecognized:
       self.readTopLevelAttributes(self.dcm.Modality)
+
+    for table in self.rulesDictionary:
+      if table in self.modalitiesRecognized:
+        # these should have already been handeled
+        continue
+      # otherwise, first determine whether a given table is
+      #  supposed to be generated from the input modality
+      # To make life easier, I do not parse links across tables
+      #  but instead rely on the prefix in the table name to determine
+      #  applicability
+      prefix,attribute = table.split('_')[0]
+
+      if self.dcm.Modality != prefix:
+        continue
+      self.unresolvedAttributes.append(attribute)
+
+    # now we should have the complete list of unresolved attributes that
+    #  should be parsed
+    self.readUnresolvedAttributes()
+
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
-    unresolvedAttributes = []
+    self.unresolvedAttributes = []
     for a in self.rulesDictionary[modality]:
       try:
         dataElement = self.dcm.data_element(a)
@@ -36,17 +60,23 @@ class DICOMParser:
 #        self.tables[tableName][a] = self.dcm.data_element(a).value
 #        print self.dcm.data_element(a).VM
       except:
-        unresolvedAttributes.append(a)
+        self.unresolvedAttributes.append(a)
         self.tables[modality][a] = None
 
-    for a in unresolvedAttributes:
-      if hasattr(self,"read"+modality+a):
+  def readUnresolvedAttributes(self):
+    for a in self.unresolvedAttributes:
+      if hasattr(self,"read"+self.dcm.Modality+a):
          resolvedAttribute = str(getattr(self, "read%s%s" % (modality, a) )())
-         self.tables[modality][a] = resolvedAttribute
+         self.tables[self.dcm.Modality][a] = resolvedAttribute
          if resolvedAttribute is not None:
            print "Successfully resolved",a
          else:
            print "Failed to resolve",a
+
+    if self.dcm.Modality == "SEG":
+      from DICOMSEGObject import DICOMSEGObject
+        self.object = DICOMSEGObject(self.fileName)
+
 
       #print self.tables[tableName][a]
 
@@ -143,7 +173,7 @@ class DICOMParser:
       evidenceSeq = self.dcm.data_element("CurrentRequestedProcedureEvidenceSequence")
     except:
       evidenceSeq = None
-      
+
     if refSeriesSeq:
       self.readReferencedSeriesSequence(refSeriesSeq)
     if evidenceSeq:
@@ -158,7 +188,6 @@ class DICOMParser:
         refInstanceUID = i.ReferencedSOPInstanceUID
 
         self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
-
 
   def readEvidenceSequence(self, seq):
     for l1item in seq:
