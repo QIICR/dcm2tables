@@ -5,7 +5,7 @@ class DICOMParser:
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
-      print "Failed to read input DICOM!"
+      raise
 
     self.rulesDictionary = rulesDictionary
 
@@ -49,10 +49,12 @@ class DICOMParser:
       if hasattr(self,"read"+modality+a):
          resolvedAttribute = str(getattr(self, "read%s%s" % (modality, a) )())
          self.tables[modality][a] = resolvedAttribute
+         '''
          if resolvedAttribute is not None:
            print "Successfully resolved",a
          else:
            print "Failed to resolve",a
+         '''
 
       #print self.tables[tableName][a]
 
@@ -215,7 +217,7 @@ class DICOMParser:
     for frame in pfFG:
       fAttr = {}
       for attr in self.rulesDictionary["SEG_SegmentFrames"]:
-        print "Looking for",attr
+        # print "Looking for",attr
         # recursively search in the per-frame FG item
         value = self.recursiveFindInDataset(frame,attr)
         if value is None:

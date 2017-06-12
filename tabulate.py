@@ -27,6 +27,7 @@ def main():
       try:
         dicomParser = DICOMParser(dcmName, tablesRules)
       except:
+        "Failed to read as DICOM:",dcmName
         continue
 
       dicomParser.parse()
