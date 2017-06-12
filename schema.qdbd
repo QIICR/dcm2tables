@@ -10,7 +10,6 @@ CompositeContext
 SOPClassUID
 SOPInstanceUID PK
 SeriesInstanceUID
-StudyInstanceUID
 StudyDate
 SeriesDate
 StudyTime
@@ -106,29 +105,31 @@ PersonObserverName # <has obs context PNAME:(,,"Person Observer Name")="User2">
 ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
 
 # Flattened selected content of SegmentSequence
-Segments
+#  Use modality prefix to establish relationships as to what modalities
+#  these tables apply to
+SEG_Segments
 -
 SOPInstanceUID FK >- SEG.SOPInstanceUID
 SegmentNumber
 SegmentAlgorithmType
 SegmentAlgorithmName
 SegmentLabel
-AnatomicRegionSequence_Code
+AnatomicRegionSequence_CodeValue
 AnatomicRegionSequence_CodingSchemeDesignator
 AnatomicRegionSequence_CodeMeaning
-SegmentedPropertyCategory_Code
-SegmentedPropertyCategory_CodingSchemeDesignator
-SegmentedPropertyCategory_CodeMeaning
-SegmentedPropertyType_Code
-SegmentedPropertyType_CodingSchemeDesignator
-SegmentedPropertyType_CodeMeaning
+SegmentedPropertyCategoryCodeSequence_CodeValue
+SegmentedPropertyCategoryCodeSequence_CodingSchemeDesignator
+SegmentedPropertyCategoryCodeSequence_CodeMeaning
+SegmentedPropertyTypeCodeSequence_CodeValue
+SegmentedPropertyTypeCodeSequence_CodingSchemeDesignator
+SegmentedPropertyTypeCodeSequence_CodeMeaning
 
 # Flattened selected content of SharedFunctionalGroupsSequence
 #  and PerFrameFunctionalGroupsSequence
-SegmentFrames
+SEG_SegmentFrames
 -
-SOPInstanceUID FK >- Segments.SOPInstanceUID
-SegmentNumber FK >- Segments.SegmentNumber
+SOPInstanceUID FK >- SEG_Segments.SOPInstanceUID
+SegmentNumber FK >- SEG_Segments.SegmentNumber
 SliceThickness
 SpacingBetweenSlices
 PixelSpacing
@@ -139,36 +140,36 @@ ReferencedSOPClassUID
 
 # Flattened (selectively) from the Measurements groups container
 #  of TID 1500 documents
-MeasurementGroups
+SR1500_MeasurementGroups
 -
 SOPInstanceUID FK >- SR.SOPInstanceUID
 ActivitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
-Finding_Code
+Finding_CodeValue
 Finding_CodingSchemeDesignator
 Finding_CodeMeaning
 TimePoint
-FindingSite_Code
+FindingSite_CodeValue
 FindingSite_CodingSchemeDesignator
 FindingSite_CodeMeaning
-MeasurementMethod_Code
+MeasurementMethod_CodeValue
 MeasurementMethod_CodingSchemeDesignator
 MeasurementMethod_Meaning
 
 # Individual measurements from the measurement groups
-Measurements
+SR1500_Measurements
 -
-SOPInstanceUID FK >- MeasurementGroups.SOPInstanceUID
-TrackingUniqueIdentifier FK >- MeasurementGroups.TrackingUniqueIdentifier
-Quantity_Code
+SOPInstanceUID FK >- SR1500_MeasurementGroups.SOPInstanceUID
+TrackingUniqueIdentifier FK >- SR1500_MeasurementGroups.TrackingUniqueIdentifier
+Quantity_CodeValue
 Quantity_CodingSchemeDesignator
 Quantity_CodeMeaning
 Value
-Derivation_Code
+Derivation_CodeValue
 Derivation_CodingSchemeDesignator
 Derivation_Meaning
-MeasurementMethod_Code
+MeasurementMethod_CodeValue
 MeasurementMethod_CodingSchemeDesignator
 MeasurementMethod_Meaning
 

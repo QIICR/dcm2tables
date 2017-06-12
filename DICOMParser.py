@@ -18,8 +18,14 @@ class DICOMParser:
     self.readTopLevelAttributes("CompositeContext")
     self.readReferences()
 
-    if self.dcm.Modality in ["SR","PT","CT","SEG","RWV"]:
+    modality = self.dcm.Modality
+
+    if modality in ["SR","PT","CT","SEG","RWV"]:
       self.readTopLevelAttributes(self.dcm.Modality)
+
+    if modality == "SEG":
+      self.readSegments()
+      #self.readSegmentFrames()
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
@@ -143,7 +149,7 @@ class DICOMParser:
       evidenceSeq = self.dcm.data_element("CurrentRequestedProcedureEvidenceSequence")
     except:
       evidenceSeq = None
-      
+
     if refSeriesSeq:
       self.readReferencedSeriesSequence(refSeriesSeq)
     if evidenceSeq:
@@ -159,7 +165,6 @@ class DICOMParser:
 
         self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
 
-
   def readEvidenceSequence(self, seq):
     for l1item in seq:
       seriesSeq = l1item.data_element("ReferencedSeriesSequence").value
@@ -171,3 +176,53 @@ class DICOMParser:
           refInstanceUID = l3item.ReferencedSOPInstanceUID
 
           self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
+
+  def readSegments(self):
+    seq = self.dcm.data_element("SegmentSequence")
+    self.tables["SEG_Segments"] = []
+
+    for segment in seq:
+      sAttr = {}
+
+      # Attrubute should be either in a sub-sequence, at the
+      #  top level of the sequence, or at the top level of the dataset
+      #  Try all those options
+      for attr in self.rulesDictionary["SEG_Segments"]:
+        if attr.find("_")>0:
+          # it is (supposed to be!) a code tuple in a sequence
+          seqName,attrName = attr.split("_")
+          sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
+        else:
+          try:
+            sAttr[attr] = segment.data_element(attr).value
+          except:
+            try:
+              sAttr[attr] = self.dcm.data_element(attr).value
+            except:
+              sAttr[attr] = None
+
+      self.tables["SEG_Segments"].append(sAttr)
+
+  def readSegmentFrames(self):
+    pfFG = self.dcm.data_element("PerFrameFunctionalGroupsSequence")
+    sFG = self.dcm.data_element("SharedFunctionalGroupsSequence")
+
+    self.tables["SEG_SegmentFrames"] = []
+
+    # Attrubute should be either in a sub-sequence, in the shared FG,
+    #  or at the top level of the dataset
+    #  Try all those options
+    for frame in pfFG:
+      for attr in self.rulesDictionary["SEG_SegmentFrames"]:
+        if attr.find("_")>0:
+          # it is (supposed to be!) a code tuple in a sequence
+          seqName,attrName = attr.split("_")
+          sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
+        else:
+          try:
+            sAttr[attr] = segment.data_element(attr).value
+          except:
+            try:
+              sAttr[attr] = self.dcm.data_element(attr).value
+            except:
+              sAttr[attr] = None
