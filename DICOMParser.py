@@ -25,7 +25,7 @@ class DICOMParser:
 
     if modality == "SEG":
       self.readSegments()
-      #self.readSegmentFrames()
+      self.readSegmentFrames()
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
@@ -213,16 +213,33 @@ class DICOMParser:
     #  or at the top level of the dataset
     #  Try all those options
     for frame in pfFG:
+      fAttr = {}
       for attr in self.rulesDictionary["SEG_SegmentFrames"]:
-        if attr.find("_")>0:
-          # it is (supposed to be!) a code tuple in a sequence
-          seqName,attrName = attr.split("_")
-          sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
-        else:
-          try:
-            sAttr[attr] = segment.data_element(attr).value
-          except:
-            try:
-              sAttr[attr] = self.dcm.data_element(attr).value
-            except:
-              sAttr[attr] = None
+        print "Looking for",attr
+        # recursively search in the per-frame FG item
+        value = self.recursiveFindInDataset(frame,attr)
+        if value is None:
+          # recursively search in the shared FG
+          value = self.recursiveFindInDataElement(sFG,attr)
+        # if those fail, look it up top-level
+        if value is None:
+          value = self.dcm.data_element(attr).value
+        fAttr[attr] = value
+      self.tables["SEG_SegmentFrames"].append(fAttr)
+
+  # idea from https://github.com/pieper/Chronicle/blob/master/bin/record.py#L58
+  def recursiveFindInDataElement(self,de,attr):
+    if de.keyword == attr:
+      return de.value
+    elif de.VR == "SQ":
+      for item in de:
+        return self.recursiveFindInDataset(item,attr)
+    return None
+
+  def recursiveFindInDataset(self,ds,attr):
+    for key in ds.keys():
+      de = ds[key]
+      value = self.recursiveFindInDataElement(de,attr)
+      if value is not None:
+        return value
+    return None

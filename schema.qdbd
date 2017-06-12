@@ -129,7 +129,7 @@ SegmentedPropertyTypeCodeSequence_CodeMeaning
 SEG_SegmentFrames
 -
 SOPInstanceUID FK >- SEG_Segments.SOPInstanceUID
-SegmentNumber FK >- SEG_Segments.SegmentNumber
+ReferencedSegmentNumber FK >- SEG_Segments.SegmentNumber
 SliceThickness
 SpacingBetweenSlices
 PixelSpacing
