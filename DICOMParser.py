@@ -1,13 +1,16 @@
-import pydicom, os, sys
+import pydicom, os, sys, json
 
 class DICOMParser:
-  def __init__(self,fileName,rulesDictionary):
+  def __init__(self,fileName,rulesDictionary,dcmqiPath=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
       raise
 
+    self.fileName = fileName
     self.rulesDictionary = rulesDictionary
+    self.tempPath = tempPath
+    self.dcmqiPath = dcmqiPath
 
     self.tables = {}
 
@@ -26,6 +29,19 @@ class DICOMParser:
     if modality == "SEG":
       self.readSegments()
       self.readSegmentFrames()
+
+    if modality == "SR":
+      tid = self.dcm.ContentTemplateSequence[0].TemplateIdentifier
+      if tid == "1500":
+        # convert to JSON
+        from subprocess import call
+        outputJSON = os.path.join(self.tempPath,"measurements.json")
+        tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
+        print tid1500reader
+        call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
+        with open(outputJSON) as jsonFile:
+          measurementsJSON = json.load(jsonFile)
+          self.readMeasurements(measurementsJSON)
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
@@ -245,3 +261,54 @@ class DICOMParser:
       if value is not None:
         return value
     return None
+
+  def readMeasurements(self,measurements):
+    self.tables["SR1500_MeasurementGroups"] = []
+    self.tables["SR1500_Measurements"] = []
+
+    for mg in measurements["Measurements"]:
+      mAttr = {}
+      for attr in self.rulesDictionary["SR1500_MeasurementGroups"]:
+        # first try to find it in the top-level of the measurements group json
+        if attr in mg.keys():
+          value = mg[attr]
+        elif attr.find("_")>0:
+          # this is a code sequence
+          concept = attr.split("_")[0]
+          item = attr.split("_")[1]
+          value = mg[concept][item]
+        else:
+          # if all other attempts fail, read it at the top level of the
+          #   DICOM dataset (it must be a foreign key)
+          value = self.dcm.data_element(attr).value
+        mAttr[attr] = value
+
+      self.tables["SR1500_MeasurementGroups"].append(mAttr)
+
+      for mi in mg["measurementItems"]:
+        miAttr = {}
+        # OMG! Such a terrible code duplication
+        for iattr in self.rulesDictionary["SR1500_Measurements"]:
+          # first try to find it in the top-level of the measurements group json
+          if iattr in mi.keys():
+            value = mi[iattr]
+          elif iattr.find("_")>0:
+            # this is a code sequence
+            concept = iattr.split("_")[0]
+            item = iattr.split("_")[1]
+            try:
+              value = mi[concept][item]
+            except:
+              continue
+          # the attribute is one level above!
+          #  our secondary foreign key is TrackingUniqueIdentifier ...
+          # So this is a tiny bit different from the code above!
+          elif iattr in mAttr.keys():
+            value = mAttr[iattr]
+          else:
+            # if all other attempts fail, read it at the top level of the
+            #   DICOM dataset (it must be a foreign key)
+            value = self.dcm.data_element(iattr).value
+
+          miAttr[iattr] = value
+        self.tables["SR1500_Measurements"].append(miAttr)

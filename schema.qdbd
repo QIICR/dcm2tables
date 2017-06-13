@@ -143,35 +143,35 @@ ReferencedSOPClassUID
 SR1500_MeasurementGroups
 -
 SOPInstanceUID FK >- SR.SOPInstanceUID
-ActivitySession
+activitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
 Finding_CodeValue
 Finding_CodingSchemeDesignator
 Finding_CodeMeaning
-TimePoint
+timePoint
 FindingSite_CodeValue
 FindingSite_CodingSchemeDesignator
 FindingSite_CodeMeaning
-MeasurementMethod_CodeValue
-MeasurementMethod_CodingSchemeDesignator
-MeasurementMethod_Meaning
+measurementMethod_CodeValue
+measurementMethod_CodingSchemeDesignator
+measurementMethod_CodeMeaning
 
 # Individual measurements from the measurement groups
 SR1500_Measurements
 -
 SOPInstanceUID FK >- SR1500_MeasurementGroups.SOPInstanceUID
 TrackingUniqueIdentifier FK >- SR1500_MeasurementGroups.TrackingUniqueIdentifier
-Quantity_CodeValue
-Quantity_CodingSchemeDesignator
-Quantity_CodeMeaning
-Value
-Derivation_CodeValue
-Derivation_CodingSchemeDesignator
-Derivation_Meaning
-MeasurementMethod_CodeValue
-MeasurementMethod_CodingSchemeDesignator
-MeasurementMethod_Meaning
+quantity_CodeValue
+quantity_CodingSchemeDesignator
+quantity_CodeMeaning
+value
+derivationModifier_CodeValue
+derivationModifier_CodingSchemeDesignator
+derivationModifier_CodeMeaning
+measurementMethod_CodeValue
+measurementMethod_CodingSchemeDesignator
+measurementMethod_CodeMeaning
 
 
 # Flattened content of the

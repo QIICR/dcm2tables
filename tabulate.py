@@ -3,6 +3,9 @@ from QDBDParser import QDBDParser
 from DICOMParser import DICOMParser
 import json
 
+dcmqiPath = '/Users/fedorov/local/builds/dcmqi-refactored/dcmqi-build/bin'
+tempPath = '.'
+
 # Inputs:
 #  #1 - DB schema file from https://app.quickdatabasediagrams.com
 #    (remove all layout components from the bottom if exporting
@@ -25,7 +28,7 @@ def main():
     for f in files:
       dcmName = os.path.join(root,f)
       try:
-        dicomParser = DICOMParser(dcmName, tablesRules)
+        dicomParser = DICOMParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
       except:
         "Failed to read as DICOM:",dcmName
         continue
@@ -49,7 +52,7 @@ def main():
 
   for t in tables.keys():
     if type(tables[t]) == pandas.DataFrame:
-      tables[t].to_csv(t+".csv")
+      tables[t].to_csv(t+".csv",sep='\t')
 
 if __name__ == '__main__':
   main()
