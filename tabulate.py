@@ -24,6 +24,7 @@ def main():
   for root,dirs,files in os.walk(sys.argv[2]):
     for f in files:
       dcmName = os.path.join(root,f)
+      print dcmName ######
       try:
         dicomParser = DICOMParser(dcmName, tablesRules)
       except:
