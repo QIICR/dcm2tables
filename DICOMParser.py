@@ -209,7 +209,10 @@ class DICOMParser:
         if attr.find("_")>0:
           # it is (supposed to be!) a code tuple in a sequence
           seqName,attrName = attr.split("_")
-          sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
+          try:
+            sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
+          except:
+            continue
         else:
           try:
             sAttr[attr] = segment.data_element(attr).value
