@@ -75,42 +75,9 @@ class DICOMParser:
   #  ConceptNameCodeSequence > CodeMeaning, and return the data element corresponding
   #  to the ConceptCodeSequnce matching the requested ConceptNameCodeSequence meaning
   def getConceptCodeByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    if not dataElement is None:
-      for item in dataElement:
-        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
-          return item.ConceptCodeSequence[0]
-    return None
-
-  def getDateByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    if not dataElement is None:
-      for item in dataElement:
-        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
-          return item.Date
-    return None
-
-  def getTextByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    if not dataElement is None:
-      for item in dataElement:
-        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
-          return item.TextValue
-    return None
-
-  def getNumberByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    if not dataElement is None:
-      for item in dataElement:
-        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
-          return item.MeasuredValueSequence[0].NumericValue
-    return None
-
-  def getContainerByConceptNameMeaning(self,dataElement,conceptNameMeaning):
-    if not dataElement is None:
-      for item in dataElement:
-        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
-          try:
-            return item.data_element('ContentSequence')
-          except:
-            return None
-    return None
+    for item in dataElement:
+      if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
+        return item.ConceptCodeSequence[0]
 
 
   def getMeasurementUnitsCodeSequence(self):
@@ -208,9 +175,7 @@ class DICOMParser:
     dataElement = getattr(self,"getCD%sContainer"%(container))()
     self.readCDValue(container,'Code',"PrimaryTumorSite","Primary tumor site",dataElement)
     self.readCDValue(container,"Code","TumorStageFinding","Tumor stage finding",dataElement)
-
-  def readCDTNMCategory(self,container):
-    dataElement = getattr(self,"getCD%sContainer"%(container))()
+    dataElement = self.getContainerByConceptNameMeaning(dataElement,"TNM Category")
     self.readCDValue(container,"Code","TStage","T Stage",dataElement)
     self.readCDValue(container,"Code","NStage","N Stage",dataElement)
     self.readCDValue(container,"Code","MStage","M Stage",dataElement)
@@ -221,9 +186,11 @@ class DICOMParser:
     self.readCDValue(container,"Code","MalignantNeoplasm","History of malignant neoplasm",dataElement)
 
   def readCDBiopsy(self,container):
-    dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDValue(container,"Date","DateOfProcedure","Date of procedure",dataElement)
-    self.readCDValue(container,"TextValue","Site","Biopsy Site",dataElement)
+    dataElements = getattr(self,"getCD%sContainer"%(container))()
+    if not dataElements is None:
+      for dataElement in dataElements:
+        self.readCDValue(container,"Date","DateOfProcedure","Date of procedure",dataElement)
+        self.readCDValue(container,"TextValue","Site","Biopsy Site",dataElement)
 
   def readCDSurgery(self, container):
     dataElement = getattr(self, "getCD%sContainer" % (container))()
@@ -295,23 +262,6 @@ class DICOMParser:
     self.readCDValue(container,"Code","PerineuralInvasionFinding", "Perineural invasion finding",dataElement)
     self.readCDValue(container,"Code","StatusOfVascularInvasionByTumor", "Status of vascular invasion by tumor",dataElement)
 
-  def readCDValue(self,container,field,codeMeaning,dataElement):
-    if type(dataElement)==pydicom.dataset.Dataset:
-      if dataElement.data_element('ConceptNameCodeSequence')[0].CodeMeaning == codeMeaning:
-        dataElement = dataElement.data_element('ConceptCodeSequence')[0]
-      else:
-        dataElement=None
-    else:
-      dataElement = self.getConceptCodeByConceptNameMeaning(dataElement,codeMeaning)
-    if dataElement is None:
-      self.tables['CD']["%s_%s_CodeValue"%(container,field)] = None
-      self.tables['CD']["%s_%s_CodingSchemeDesignator"%(container,field)] = None
-      self.tables['CD']["%s_%s_CodeMeaning"%(container,field)] = None
-    else:
-      self.tables['CD']["%s_%s_CodeValue" % (container, field)] = dataElement.CodeValue
-      self.tables['CD']["%s_%s_CodingSchemeDesignator" % (container, field)] = dataElement.CodingSchemeDesignator
-      self.tables['CD']["%s_%s_CodeMeaning" % (container, field)] = dataElement.CodeMeaning
-
   def readCDValue(self,container,valueType,field,codeMeaning,dataElement):
     value=None
     if not dataElement is None:
@@ -345,6 +295,16 @@ class DICOMParser:
     else:
       self.tables['CD']["%s_%s" % (container, field)] = value
 
+  def getContainerByConceptNameMeaning(self,dataElement,conceptNameMeaning):
+    if not dataElement is None:
+      for item in dataElement:
+        if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
+          try:
+            return item.data_element('ContentSequence')
+          except:
+            return None
+    return None
+
   def getCDSocialHistoryContainer(self):
     return self.getCDSummaryClinicalDocumentContainer()[3].data_element('ContentSequence')
 
@@ -365,8 +325,7 @@ class DICOMParser:
       return None
 
   def getCDBiopsyContainer(self):
-    dataElement =  self.getCDDiagnosticProcedureContainer()
-    return self.getContainerByConceptNameMeaning(dataElement,"Biopsy")
+    return  self.getCDDiagnosticProcedureContainer()
 
   def getCDTherapeuticProcedureContainer(self):
     return self.getCDSummaryClinicalDocumentContainer()[7].data_element('ContentSequence')

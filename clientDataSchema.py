@@ -5,8 +5,7 @@ CDschema = {
         ("CODE","DetailsOfTobaccoChewing","Details of tobacco chewing")),
     "TumorStaging":(
         ("CODE","PrimaryTumorSite","Primary tumor site"),
-        ("CODE","TumorStageFinding"),"Tumor stage finding"),
-    "TNMCategory":(
+        ("CODE","TumorStageFinding","Tumor stage finding"),
         ("CODE","TStage","T Stage"),
         ("CODE","NStage","N Stage"),
         ("CODE","MStage","M Stage")),
