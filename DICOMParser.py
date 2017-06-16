@@ -200,94 +200,109 @@ class DICOMParser:
 
   def readCDSocialHistory(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDCode(container,'TobaccoSmokingBehavior','Tobacco Smoking Behavior',dataElement)
-    self.readCDCode(container,'AlcoholConsumption','Alcohol consumption',dataElement)
-    self.readCDCode(container,'DetailsOfTobaccoChewing','Details of tobacco chewing',dataElement)
+    self.readCDValue(container,'Code','TobaccoSmokingBehavior','Tobacco Smoking Behavior',dataElement)
+    self.readCDValue(container,'Code','AlcoholConsumption','Alcohol consumption',dataElement)
+    self.readCDValue(container,'Code','DetailsOfTobaccoChewing','Details of tobacco chewing',dataElement)
 
   def readCDTumorStaging(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDCode(container,"PrimaryTumorSite","Primary tumor site",dataElement)
-    self.readCDCode(container,"TumorStageFinding","Tumor stage finding",dataElement)
+    self.readCDValue(container,'Code',"PrimaryTumorSite","Primary tumor site",dataElement)
+    self.readCDValue(container,"Code","TumorStageFinding","Tumor stage finding",dataElement)
 
   def readCDTNMCategory(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDCode(container,"TStage","T Stage",dataElement)
-    self.readCDCode(container,"NStage","N Stage",dataElement)
-    self.readCDCode(container,"MStage","M Stage",dataElement)
+    self.readCDValue(container,"Code","TStage","T Stage",dataElement)
+    self.readCDValue(container,"Code","NStage","N Stage",dataElement)
+    self.readCDValue(container,"Code","MStage","M Stage",dataElement)
 
   def readCDMedicalHistory(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDCode(container,"RadiationTherapy","History of radiation therapy",dataElement)
-    self.readCDCode(container,"MalignantNeoplasm","History of malignant neoplasm",dataElement)
+    self.readCDValue(container,"Code","RadiationTherapy","History of radiation therapy",dataElement)
+    self.readCDValue(container,"Code","MalignantNeoplasm","History of malignant neoplasm",dataElement)
 
   def readCDBiopsy(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDDate(container,"DateOfProcedure","Date of procedure",dataElement)
-    self.readCDText(container,"Site","Biopsy Site",dataElement)
+    self.readCDValue(container,"Date","DateOfProcedure","Date of procedure",dataElement)
+    self.readCDValue(container,"TextValue","Site","Biopsy Site",dataElement)
 
   def readCDSurgery(self, container):
     dataElement = getattr(self, "getCD%sContainer" % (container))()
-    self.readCDDate(container,"DateOfProcedure", "Date of procedure",dataElement)
-    self.readCDText(container,"ProcedureDescription", "Procedure Description",dataElement)
-    self.readCDCode(container,"ResectionOfPrimaryTumor", "Resection of primary tumor",dataElement),
-    self.readCDCode(container,"BlockDissectionfCervicalLymphNodes", "Block dissection of cervical lymph nodes",dataElement),
+    self.readCDValue(container,"Date","DateOfProcedure", "Date of procedure",dataElement)
+    self.readCDValue(container,"TextValue","ProcedureDescription", "Procedure Description",dataElement)
+    self.readCDValue(container,"Code","ResectionOfPrimaryTumor", "Resection of primary tumor",dataElement),
+    self.readCDValue(container,"Code","BlockDissectionOfCervicalLymphNodes", "Block dissection of cervical lymph nodes",dataElement),
 
   def readCDRadiotherapy(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDDate(container,"DateTreatmentStarted", "Date treatment started",dataElement)
-    self.readCDDate(container,"DateTreatmentStopped", "Date treatment stopped",dataElement)
-    self.readCDNum(container,"TotalRadiationDoseDelivered", "Total radiation dose delivered",dataElement)
-    self.readCDNum(container,"RadiationDosePerFraction", "Radiation dose per fraction",dataElement)
-    self.readCDText(container,"ProcedureDescription","Procedure Description",dataElement)
+    self.readCDValue(container,"Date","DateTreatmentStarted", "Date treatment started",dataElement)
+    self.readCDValue(container,"Date","DateTreatmentStopped", "Date treatment stopped",dataElement)
+    self.readCDValue(container,"NumericValue","TotalRadiationDoseDelivered", "Total radiation dose delivered",dataElement)
+    self.readCDValue(container,"NumericValue","RadiationDosePerFraction", "Radiation dose per fraction",dataElement)
+    self.readCDValue(container,"TextValue","ProcedureDescription","Procedure Description",dataElement)
 
   def readCDChemotherapy(self,container):
     dataElement = getattr(self,"getCD%sContainer"%(container))()
-    self.readCDDate(container,"DateTreatmentStarted", "Date treatment started",dataElement)
-    self.readCDDate(container,"DateTreatmentStopped", "Date treatment stopped",dataElement)
-    self.readCDCode(container,"AntineoplasticAgent", "Antineoplastic agent",dataElement)  # Need to support up to 3
+    self.readCDValue(container,"Date","DateTreatmentStarted", "Date treatment started",dataElement)
+    self.readCDValue(container,"Date","DateTreatmentStopped", "Date treatment stopped",dataElement)
+    self.readCDValue(container,"Code","AntineoplasticAgent", "Antineoplastic agent",dataElement)  # Need to support up to 3
 
   def readCDOriginalPathology(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
-    self.readCDCode(container,"Pathology","Pathology",dataElement)
+    dataElement = getattr(self,"getCD%sContainer" % (container))()
+    self.readCDValue(container,"Code","Pathology","Pathology",dataElement)
     if not dataElement is None:
       dataElement=dataElement[0].data_element('ContentSequence')
-    self.readCDCode(container,"HistologicalGradeFinding","Histological grade finding"   ,dataElement)
-    self.readCDCode(container,"MalignancyType","Malignancy Type",dataElement)
-    self.readCDCode(container,"TumorMarginStatus","Tumor margin status",dataElement)
-    self.readCDCode(container,"PerineuralInvasionFinding","Perineural invasion finding",dataElement)
-    self.readCDCode(container,"StatusOfVascularInvasionByTumor","Status of vascular invasion by tumor",dataElement)
+    self.readCDValue(container,"Code","HistologicalGradeFinding","Histological grade finding",dataElement)
+    self.readCDValue(container,"Code","MalignancyType","Malignancy Type",dataElement)
+    self.readCDValue(container,"Code","TumorMarginStatus","Tumor margin status",dataElement)
+    self.readCDValue(container,"Code","PerineuralInvasionFinding","Perineural invasion finding",dataElement)
+    self.readCDValue(container,"Code","StatusOfVascularInvasionByTumor","Status of vascular invasion by tumor",dataElement)
 
   def readCDCervicalLymphNodeGroupExcision(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
-    self.readCDCode(container,"CervicalLymphNodeGroup","Cervical lymph node group",dataElement)
-    self.readCDCode(container,"Sidedness","Sidedness",dataElement)
-    self.readCDNum(container,"NumberOfNodesRemoved","Number of nodes removed",dataElement)
-    self.readCDNum(container,"NumberOfNodesPositive","Number of nodes positive",dataElement)
-    self.readCDText(container,"Comment","Comment",dataElement)
+    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    if not dataElements is None:
+      for dataElement in dataElements:
+        self.readCDValue(container,"Code","CervicalLymphNodeGroup", "Cervical lymph node group", dataElement)
+        self.readCDValue(container,"Code","StatusOfExtraCapsularExtensionOfNodalTumor","Status of extra-capsular extension of nodal tumor",dataElement)
+        self.readCDValue(container,"TextValue","Comment","Comment",dataElement)
+        try:
+          dataElement=dataElement.data_element('ContentSequence')
+          self.readCDValue(container,"Code","Sidedness", "Sidedness", dataElement)
+          self.readCDValue(container,"NumericValue","NumberOfNodesRemoved", "Number of nodes removed", dataElement)
+          self.readCDValue(container,"NumericValue","NumberOfNodesPositive", "Number of nodes positive", dataElement)
+        except:
+          return
 
   def readCDDiseaseOutcome(self, container):
     dataElement = getattr(self, "getCD%sContainer" % (container))()
-    self.readCDDate(container,"FollowupVisitDate","Follow-up visit date",dataElement)
-    self.readCDCode(container,"FollowupStatus","Follow-up status",dataElement)
-    self.readCDDate(container,"DateOfDeath","Date of death",dataElement)
-    self.readCDCode(container,"CauseOfDeath","Cause of death",dataElement)
-    self.readCDCode(container,"PostRadiotherapyTreatment","Post-radiotherapy treatment",dataElement)
-    self.readCDDate(container,"DateOf2ndPrimary","Date of cancer recurrence",dataElement)
-    self.readCDCode(container,"LocationOfFirstRecurrence","Location of first recurrence",dataElement)
+    self.readCDValue(container,"Date","FollowupVisitDate","Follow-up visit date",dataElement)
+    self.readCDValue(container,"Code","FollowupStatus","Followup status",dataElement)
+    self.readCDValue(container,"Date","DateOfDeath","Date of death",dataElement)
+    self.readCDValue(container,"Code","CauseOfDeath","Cause of death",dataElement)
+    self.readCDValue(container,"Code","PostRadiotherapyTreatment","Post-radiotherapy treatment",dataElement)
+    self.readCDValue(container,"Date","DateOf2ndPrimary","Date of cancer recurrence",dataElement)
+    self.readCDValue(container,"Code","LocationOfFirstRecurrence","Location of first recurrence",dataElement)
 
   def readCDRecurrentPathology(self, container):
     dataElement = getattr(self, "getCD%sContainer" % (container))()
-    self.readCDCode(container, "Pathology", "Pathology",dataElement)
     if not dataElement is None:
       dataElement = dataElement[0].data_element('ContentSequence')
-    self.readCDCode(container, "HistologicalGradeFinding", "Histological grade finding",dataElement)
-    self.readCDCode(container, "MalignancyType", "Malignancy Type",dataElement)
-    self.readCDCode(container, "TumorMarginStatus", "Tumor margin status",dataElement)
-    self.readCDCode(container, "PerineuralInvasionFinding", "Perineural invasion finding",dataElement)
-    self.readCDCode(container, "StatusOfVascularInvasionByTumor", "Status of vascular invasion by tumor",dataElement)
+    self.readCDValue(container,"Code","Pathology", "Pathology",dataElement)
+    if not dataElement is None:
+      dataElement = dataElement[0].data_element('ContentSequence')
+    self.readCDValue(container,"Code","HistologicalGradeFinding", "Histological grade finding",dataElement)
+    self.readCDValue(container,"Code","MalignancyType", "Malignancy Type",dataElement)
+    self.readCDValue(container,"Code","TumorMarginStatus", "Tumor margin status",dataElement)
+    self.readCDValue(container,"Code","PerineuralInvasionFinding", "Perineural invasion finding",dataElement)
+    self.readCDValue(container,"Code","StatusOfVascularInvasionByTumor", "Status of vascular invasion by tumor",dataElement)
 
-  def readCDCode(self,container,field,codeMeaning,dataElement):
-    dataElement = self.getConceptCodeByConceptNameMeaning(dataElement,codeMeaning)
+  def readCDValue(self,container,field,codeMeaning,dataElement):
+    if type(dataElement)==pydicom.dataset.Dataset:
+      if dataElement.data_element('ConceptNameCodeSequence')[0].CodeMeaning == codeMeaning:
+        dataElement = dataElement.data_element('ConceptCodeSequence')[0]
+      else:
+        dataElement=None
+    else:
+      dataElement = self.getConceptCodeByConceptNameMeaning(dataElement,codeMeaning)
     if dataElement is None:
       self.tables['CD']["%s_%s_CodeValue"%(container,field)] = None
       self.tables['CD']["%s_%s_CodingSchemeDesignator"%(container,field)] = None
@@ -297,17 +312,38 @@ class DICOMParser:
       self.tables['CD']["%s_%s_CodingSchemeDesignator" % (container, field)] = dataElement.CodingSchemeDesignator
       self.tables['CD']["%s_%s_CodeMeaning" % (container, field)] = dataElement.CodeMeaning
 
-  def readCDDate(self,container,field,codeMeaning,dataElement):
-    date = self.getDateByConceptNameMeaning(dataElement,codeMeaning)
-    self.tables['CD']["%s_%s" % (container, field)] = date
-
-  def readCDText(self,container,field,codeMeaning,dataElement):
-    text = self.getTextByConceptNameMeaning(dataElement,codeMeaning)
-    self.tables['CD']["%s_%s"%(container, field)] = text
-
-  def readCDNum(self,container,field,codeMeaning,dataElement):
-    number = self.getNumberByConceptNameMeaning(dataElement,codeMeaning)
-    self.tables['CD']["%s_%s"%(container, field)] = number
+  def readCDValue(self,container,valueType,field,codeMeaning,dataElement):
+    value=None
+    if not dataElement is None:
+      if type(dataElement)==pydicom.dataset.Dataset:
+        if dataElement.ConceptNameCodeSequence[0].CodeMeaning == codeMeaning:
+          if valueType=="Date" or valueType=="TextValue":
+            value = dataElement.data_element(valueType).value
+          elif valueType=="NumericValue":
+            value = dataElement.MeasuredValueSequence[0].NumericValue
+          elif valueType=="Code":
+            value = dataElement.ConceptCodeSequence[0]
+      else:
+        for item in dataElement:
+          if item.ConceptNameCodeSequence[0].CodeMeaning == codeMeaning:
+            if valueType == "Date" or valueType == "TextValue":
+              value = item.data_element(valueType).value
+            elif valueType == "NumericValue":
+              value = item.MeasuredValueSequence[0].NumericValue
+            elif valueType == "Code":
+              value = item.ConceptCodeSequence[0]
+            break
+    if valueType == "Code":
+      if value is None:
+        self.tables['CD']["%s_%s_CodeValue" % (container, field)] = None
+        self.tables['CD']["%s_%s_CodingSchemeDesignator" % (container, field)] = None
+        self.tables['CD']["%s_%s_CodeMeaning" % (container, field)] = None
+      else:
+        self.tables['CD']["%s_%s_CodeValue" % (container, field)] = value.CodeValue
+        self.tables['CD']["%s_%s_CodingSchemeDesignator" % (container, field)] = value.CodingSchemeDesignator
+        self.tables['CD']["%s_%s_CodeMeaning" % (container, field)] = value.CodeMeaning
+    else:
+      self.tables['CD']["%s_%s" % (container, field)] = value
 
   def getCDSocialHistoryContainer(self):
     return self.getCDSummaryClinicalDocumentContainer()[3].data_element('ContentSequence')

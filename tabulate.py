@@ -50,7 +50,7 @@ def main():
 
   for t in tables.keys():
     if type(tables[t]) == pandas.DataFrame:
-      tables[t].to_csv(t+".csv")
+      tables[t].to_csv(t+".tsv",index=False,sep='\t')
 
 if __name__ == '__main__':
   main()
