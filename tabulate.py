@@ -1,6 +1,6 @@
 import os, sys, json, pandas
 from QDBDParser import QDBDParser
-from DICOMParser import DICOMParser
+from SRCDParser import SRCDParser
 import json
 
 # Inputs:
@@ -26,7 +26,7 @@ def main():
       dcmName = os.path.join(root,f)
       print dcmName ######
       try:
-        dicomParser = DICOMParser(dcmName, tablesRules)
+        dicomParser = SRCDParser(dcmName, tablesRules)
       except:
         "Failed to read as DICOM:",dcmName
         continue
