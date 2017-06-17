@@ -3,8 +3,8 @@ import pydicom
 
 class SRCDParser(DICOMParser):
     def __init__(self,fileName,rulesDictionary):
-        #super().__init__(fileName,rulesDictionary)
-        DICOMParser.__init__(self,fileName,rulesDictionary)
+        super(SRCDParser,self).__init__(fileName,rulesDictionary)
+        #DICOMParser.__init__(self,fileName,rulesDictionary)
 
     def parse(self):
         modality = self.dcm.Modality
@@ -12,7 +12,7 @@ class SRCDParser(DICOMParser):
             self.readTopLevelAttributes("CD")
             self.ClinicalDataParser("CD")
         else:
-            self.parse()
+            super(SRCDParser,self).parse()
 
     def ClinicalDataParser(self, modality):
         #    self.tables[modality] = {}

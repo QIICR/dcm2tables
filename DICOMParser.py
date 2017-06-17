@@ -1,6 +1,6 @@
 import pydicom, os, sys
 
-class DICOMParser:
+class DICOMParser(object):
   def __init__(self,fileName,rulesDictionary):
     try:
       self.dcm = pydicom.read_file(fileName)
@@ -19,8 +19,6 @@ class DICOMParser:
     self.readReferences()
 
     modality = self.dcm.Modality
-#    if modality=="SR" and self.dcm.StudyDescription=="Clinical Data":
-#      modality = self.dcm.Modality = "CD"
 
     if modality in ["SR", "PT", "CT", "SEG", "RWV"]:
         self.readTopLevelAttributes(self.dcm.Modality)
