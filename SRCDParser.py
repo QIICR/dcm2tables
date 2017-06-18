@@ -3,10 +3,6 @@ import pydicom
 import copy
 
 class SRCDParser(DICOMParser):
-    def __init__(self,fileName,rulesDictionary):
-        super(SRCDParser,self).__init__(fileName,rulesDictionary)
-        #DICOMParser.__init__(self,fileName,rulesDictionary)
-
     def parse(self):
         modality = self.dcm.Modality
         if modality == "SR" and self.dcm.StudyDescription == "Clinical Data":
@@ -16,21 +12,24 @@ class SRCDParser(DICOMParser):
             super(SRCDParser,self).parse()
 
     def ClinicalDataParser(self, modality):
-        #    self.tables[modality] = {}
-        unresolvedAttributes = []
         completedContainers = []
         self.tables['CD']=[self.tables['CD']]
-        for container in ('SocialHistory','TumorStaging','MedicalHistory','Biopsy','Surgery','Radiotherapy',
+        for container in ('ProblemList','SocialHistory','TumorStaging','MedicalHistory','Biopsy','Surgery','Radiotherapy',
                   'Chemotherapy','OriginalPathology','CervicalLymphNodeGroupExcision','DiseaseOutcome'):
-        #for a in self.rulesDictionary[modality]:
-        #    if self.tables[modality][0][a] is not None:
-        #        continue
-        #    container = a.split('_', 1)[0]
-        #    if container in completedContainers:
-        #        continue
-            # Process by container
             str(getattr(self, "readCD%s" % (container))(container))
             completedContainers.append(container)
+
+    def readCDProblemList(self, container):
+        dataElement = getattr(self, "getCD%sContainer" % (container))()
+        if not dataElement is None:
+            dataElement=dataElement[0].ContentSequence
+            self.readCDValue(container, 'Code', 'Problem', 'Problem', dataElement[0])
+            srcTables=self.tables['CD']
+            self.tables['CD']=[]
+            for i in range(1,len(dataElement)):
+                destTables=copy.deepcopy(srcTables)
+                self.readCDValueMulti(container, 'Code', 'Therapy', 'Therapy', dataElement[i], destTables)
+                self.tables['CD'] += destTables
 
     def readCDSocialHistory(self, container):
         dataElement = getattr(self, "getCD%sContainer" % (container))()
@@ -245,6 +244,13 @@ class SRCDParser(DICOMParser):
                 else:
                     table["%s_%s" % (container, field)] = value
         return not value is None
+
+    def getCDProblemListContainer(self):
+        container = self.getCDSummaryClinicalDocumentContainer()[2]
+        try:
+            return container.data_element('ContentSequence')
+        except:
+            return None
 
     def getCDSocialHistoryContainer(self):
         return self.getCDSummaryClinicalDocumentContainer()[3].data_element('ContentSequence')
