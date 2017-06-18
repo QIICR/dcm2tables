@@ -107,14 +107,15 @@ class SRCDParser(DICOMParser):
                 self.readCDValue(container, "Code", "StatusOfVascularInvasionByTumor",
                                  "Status of vascular invasion by tumor", dataElement)
 
-    def readCDCervicalLymphNodeGroupExcision(self, container):
+    def readCD"Cervical lymph node group"(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
         if not dataElements is None:
-            lymphNodeGroup = [dataElement for dataElement in dataElements if not
-            (self.readCDValue(container, "Code", "StatusOfExtraCapsularExtensionOfNodalTumor",
-                              "Status of extra-capsular extension of nodal tumor", dataElement)
-             or self.readCDValue(container, "TextValue", "Comment", "Comment", dataElement))]
+            lymphNodeGroup = [dataElement for dataElement in dataElements if
+                self.readCDValue(container, "Code", "StatusOfExtraCapsularExtensionOfNodalTumor",
+                   "Status of extra-capsular extension of nodal tumor", dataElement) +
+                self.readCDValue(container, "TextValue", "Comment", "Comment", dataElement) == 0]
             for dataElement in lymphNodeGroup:
+                self.readCDValue(container,"Code","CervicalLymphNodeGroup","Cervical lymph node group",dataElement)
                 try:
                     dataElement = dataElement.data_element('ContentSequence')
                     self.readCDValue(container, "Code", "Sidedness", "Sidedness", dataElement)
