@@ -1,6 +1,6 @@
 import pydicom, os, sys, json
 
-class DICOMParser:
+class DICOMParser(object):
   def __init__(self,fileName,rulesDictionary,dcmqiPath=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
@@ -23,8 +23,8 @@ class DICOMParser:
 
     modality = self.dcm.Modality
 
-    if modality in ["SR","PT","CT","SEG","RWV"]:
-      self.readTopLevelAttributes(self.dcm.Modality)
+    if modality in ["SR", "PT", "CT", "SEG", "RWV"]:
+        self.readTopLevelAttributes(self.dcm.Modality)
 
     if modality == "SEG":
       self.readSegments()
@@ -89,7 +89,6 @@ class DICOMParser:
     for item in dataElement:
       if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
         return item.ConceptCodeSequence[0]
-    return None
 
   def getMeasurementUnitsCodeSequence(self):
     dataElement = self.dcm.data_element("ReferencedImageRealWorldValueMappingSequence").value[0]
