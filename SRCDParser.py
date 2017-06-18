@@ -1,5 +1,6 @@
 from DICOMParser import DICOMParser
 import pydicom
+import copy
 
 class SRCDParser(DICOMParser):
     def __init__(self,fileName,rulesDictionary):
@@ -18,12 +19,15 @@ class SRCDParser(DICOMParser):
         #    self.tables[modality] = {}
         unresolvedAttributes = []
         completedContainers = []
-        for a in self.rulesDictionary[modality]:
-            if self.tables[modality][a] is not None:
-                continue
-            container = a.split('_', 1)[0]
-            if container in completedContainers:
-                continue
+        self.tables['CD']=[self.tables['CD']]
+        for container in ('SocialHistory','TumorStaging','MedicalHistory','Biopsy','Surgery','Radiotherapy',
+                  'Chemotherapy','OriginalPathology','CervicalLymphNodeGroupExcision','DiseaseOutcome'):
+        #for a in self.rulesDictionary[modality]:
+        #    if self.tables[modality][0][a] is not None:
+        #        continue
+        #    container = a.split('_', 1)[0]
+        #    if container in completedContainers:
+        #        continue
             # Process by container
             str(getattr(self, "readCD%s" % (container))(container))
             completedContainers.append(container)
@@ -54,43 +58,68 @@ class SRCDParser(DICOMParser):
 
     def readCDBiopsy(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
-        if not dataElements is None:
+        if not dataElements is None and dataElements.VM>0:
+            srcTables=self.tables['CD']
+            self.tables['CD']=[]
             for dataElement in dataElements:
+                destTables=copy.deepcopy(srcTables)
                 dataElement = dataElement.ContentSequence
-                self.readCDValue(container, "Date", "DateOfProcedure", "Date of procedure", dataElement)
-                self.readCDValue(container, "TextValue", "Site", "Biopsy Site", dataElement)
+                self.readCDValueMulti(container, "Date", "DateOfProcedure", "Date of procedure", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "TextValue", "Site", "Biopsy Site", dataElement,
+                    destTables)
+                self.tables['CD'] += destTables
 
     def readCDSurgery(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
-        if not dataElements is None:
+        if not dataElements is None and len(dataElements)>0:
+            srcTables=self.tables['CD']
+            self.tables['CD']=[]
             for dataElement in dataElements:
-                self.readCDValue(container, "Date", "DateOfProcedure", "Date of procedure", dataElement)
-                self.readCDValue(container, "TextValue", "ProcedureDescription", "Procedure Description", dataElement)
-                self.readCDValue(container, "Code", "ResectionOfPrimaryTumor", "Resection of primary tumor",
-                                 dataElement),
-                self.readCDValue(container, "Code", "BlockDissectionOfCervicalLymphNodes",
-                                 "Block dissection of cervical lymph nodes", dataElement),
+                destTables=copy.deepcopy(srcTables)
+                self.readCDValueMulti(container, "Date", "DateOfProcedure", "Date of procedure", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "TextValue", "ProcedureDescription", "Procedure Description",
+                    dataElement, destTables)
+                self.readCDValueMulti(container, "Code", "ResectionOfPrimaryTumor", "Resection of primary tumor",
+                    dataElement, destTables)
+                self.readCDValueMulti(container, "Code", "BlockDissectionOfCervicalLymphNodes",
+                    "Block dissection of cervical lymph nodes", dataElement, destTables)
+                self.tables['CD'] += destTables
 
     def readCDRadiotherapy(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
-        if not dataElements is None:
+        if not dataElements is None and len(dataElements)>0:
+            srcTables=self.tables['CD']
+            self.tables['CD']=[]
             for dataElement in dataElements:
-                self.readCDValue(container, "Date", "DateTreatmentStarted", "Date treatment started", dataElement)
-                self.readCDValue(container, "Date", "DateTreatmentStopped", "Date treatment stopped", dataElement)
-                self.readCDValue(container, "NumericValue", "TotalRadiationDoseDelivered",
-                                 "Total radiation dose delivered", dataElement)
-                self.readCDValue(container, "NumericValue", "RadiationDosePerFraction", "Radiation dose per fraction",
-                                 dataElement)
-                self.readCDValue(container, "TextValue", "ProcedureDescription", "Procedure Description", dataElement)
+                destTables=copy.deepcopy(srcTables)
+                self.readCDValueMulti(container, "Date", "DateTreatmentStarted", "Date treatment started", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "Date", "DateTreatmentStopped", "Date treatment stopped", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "NumericValue", "TotalRadiationDoseDelivered",
+                    "Total radiation dose delivered", dataElement, destTables)
+                self.readCDValueMulti(container, "NumericValue", "RadiationDosePerFraction", "Radiation dose per fraction",
+                    dataElement, destTables)
+                self.readCDValueMulti(container, "TextValue", "ProcedureDescription", "Procedure Description", dataElement,
+                    destTables)
+                self.tables['CD'] += destTables
 
     def readCDChemotherapy(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
-        if not dataElements is None:
+        if not dataElements is None and len(dataElements)>0:
+            srcTables = self.tables['CD']
+            self.tables['CD'] = []
             for dataElement in dataElements:
-                self.readCDValue(container, "Date", "DateTreatmentStarted", "Date treatment started", dataElement)
-                self.readCDValue(container, "Date", "DateTreatmentStopped", "Date treatment stopped", dataElement)
-                self.readCDValue(container, "Code", "AntineoplasticAgent", "Antineoplastic agent",
-                                 dataElement)  # Need to support up to 3
+                destTables=copy.deepcopy(srcTables)
+                self.readCDValueMulti(container, "Date", "DateTreatmentStarted", "Date treatment started", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "Date", "DateTreatmentStopped", "Date treatment stopped", dataElement,
+                    destTables)
+                self.readCDValueMulti(container, "Code", "AntineoplasticAgent", "Antineoplastic agent",
+                    dataElement, destTables)  # Need to support up to 3
+                self.tables['CD'] += destTables
 
     def readCDOriginalPathology(self, container):
         dataElement = getattr(self, "getCD%sContainer" % (container))()
@@ -107,24 +136,30 @@ class SRCDParser(DICOMParser):
                 self.readCDValue(container, "Code", "StatusOfVascularInvasionByTumor",
                                  "Status of vascular invasion by tumor", dataElement)
 
-    def readCD"Cervical lymph node group"(self, container):
+    def readCDCervicalLymphNodeGroupExcision(self, container):
         dataElements = getattr(self, "getCD%sContainer" % (container))()
         if not dataElements is None:
             lymphNodeGroup = [dataElement for dataElement in dataElements if
                 self.readCDValue(container, "Code", "StatusOfExtraCapsularExtensionOfNodalTumor",
                    "Status of extra-capsular extension of nodal tumor", dataElement) +
                 self.readCDValue(container, "TextValue", "Comment", "Comment", dataElement) == 0]
-            for dataElement in lymphNodeGroup:
-                self.readCDValue(container,"Code","CervicalLymphNodeGroup","Cervical lymph node group",dataElement)
-                try:
-                    dataElement = dataElement.data_element('ContentSequence')
-                    self.readCDValue(container, "Code", "Sidedness", "Sidedness", dataElement)
-                    self.readCDValue(container, "NumericValue", "NumberOfNodesRemoved", "Number of nodes removed",
-                                     dataElement)
-                    self.readCDValue(container, "NumericValue", "NumberOfNodesPositive", "Number of nodes positive",
-                                     dataElement)
-                except:
-                    return
+            if len(lymphNodeGroup)>0:
+                srcTables=self.tables['CD']
+                self.tables['CD']=[]
+                for dataElement in lymphNodeGroup:
+                    destTables=copy.deepcopy(srcTables)
+                    self.readCDValueMulti(container,"Code","CervicalLymphNodeGroup","Cervical lymph node group",dataElement,
+                        destTables)
+                    try:
+                        dataElement = dataElement.data_element('ContentSequence')
+                        self.readCDValueMulti(container, "Code", "Sidedness", "Sidedness", dataElement, destTables)
+                        self.readCDValueMulti(container, "NumericValue", "NumberOfNodesRemoved", "Number of nodes removed",
+                             dataElement, destTables)
+                        self.readCDValueMulti(container, "NumericValue", "NumberOfNodesPositive", "Number of nodes positive",
+                             dataElement, destTables)
+                    except:
+                        pass
+                    self.tables['CD'] += destTables
 
     def readCDDiseaseOutcome(self, container):
         dataElement = getattr(self, "getCD%sContainer" % (container))()
@@ -151,6 +186,36 @@ class SRCDParser(DICOMParser):
                 self.readCDValue(container, "Code", "StatusOfVascularInvasionByTumor",
                                  "Status of vascular invasion by tumor", dataElement)
 
+    def readCDValueMulti(self, container, valueType, field, codeMeaning, dataElement,destTables):
+        value = None
+        if type(dataElement) == pydicom.dataset.Dataset:
+            if dataElement.ConceptNameCodeSequence[0].CodeMeaning == codeMeaning:
+                if valueType == "Date" or valueType == "TextValue":
+                    value = dataElement.data_element(valueType).value
+                elif valueType == "NumericValue":
+                    value = dataElement.MeasuredValueSequence[0].NumericValue
+                elif valueType == "Code":
+                    value = dataElement.ConceptCodeSequence[0]
+        else:
+            for item in dataElement:
+                if item.ConceptNameCodeSequence[0].CodeMeaning == codeMeaning:
+                    if valueType == "Date" or valueType == "TextValue":
+                        value = item.data_element(valueType).value
+                    elif valueType == "NumericValue":
+                        value = item.MeasuredValueSequence[0].NumericValue
+                    elif valueType == "Code":
+                        value = item.ConceptCodeSequence[0]
+                    break
+        if not value is None:
+            for table in destTables:
+                if valueType == "Code":
+                    table["%s_%s_CodeValue" % (container, field)] = value.CodeValue
+                    table["%s_%s_CodingSchemeDesignator" % (container, field)] = value.CodingSchemeDesignator
+                    table["%s_%s_CodeMeaning" % (container, field)] = value.CodeMeaning
+                else:
+                    table["%s_%s" % (container, field)] = value
+        return not value is None
+
     def readCDValue(self, container, valueType, field, codeMeaning, dataElement):
         value = None
         if type(dataElement) == pydicom.dataset.Dataset:
@@ -172,12 +237,13 @@ class SRCDParser(DICOMParser):
                         value = item.ConceptCodeSequence[0]
                     break
         if not value is None:
-            if valueType == "Code":
-                self.tables['CD']["%s_%s_CodeValue" % (container, field)] = value.CodeValue
-                self.tables['CD']["%s_%s_CodingSchemeDesignator" % (container, field)] = value.CodingSchemeDesignator
-                self.tables['CD']["%s_%s_CodeMeaning" % (container, field)] = value.CodeMeaning
-            else:
-                self.tables['CD']["%s_%s" % (container, field)] = value
+            for table in self.tables['CD']:
+                if valueType == "Code":
+                    table["%s_%s_CodeValue" % (container, field)] = value.CodeValue
+                    table["%s_%s_CodingSchemeDesignator" % (container, field)] = value.CodingSchemeDesignator
+                    table["%s_%s_CodeMeaning" % (container, field)] = value.CodeMeaning
+                else:
+                    table["%s_%s" % (container, field)] = value
         return not value is None
 
     def getCDSocialHistoryContainer(self):
