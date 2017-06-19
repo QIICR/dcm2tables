@@ -1,7 +1,7 @@
 import pydicom, os, sys, json
 
 class DICOMParser(object):
-  def __init__(self,fileName,rulesDictionary,dcmqiPath=None,tempPath=None):
+  def __init__(self,fileName,rulesDictionary=None,dcmqiPath=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
@@ -264,6 +264,14 @@ class DICOMParser(object):
         return value
     return None
 
+  def findItemByConceptNameInContentSequence(self,seq,conceptName):
+    for item in seq:
+      if type(item) == "pydicom.sequence.Sequence":
+        self.findByConceptNameInContentSequence(item,conceptName)
+      elif item.ConceptNameCodeSequence[0].CodeMeaning == conceptName:
+        return item
+    return None
+
   def readMeasurements(self,measurements):
     self.tables["SR1500_MeasurementGroups"] = []
     self.tables["SR1500_Measurements"] = []
@@ -282,7 +290,10 @@ class DICOMParser(object):
         else:
           # if all other attempts fail, read it at the top level of the
           #   DICOM dataset (it must be a foreign key)
-          value = self.dcm.data_element(attr).value
+          try:
+            value = self.dcm.data_element(attr).value
+          except:
+            print "Failed to look up",attr
         mAttr[attr] = value
 
       self.tables["SR1500_MeasurementGroups"].append(mAttr)
@@ -307,6 +318,8 @@ class DICOMParser(object):
           # So this is a tiny bit different from the code above!
           elif iattr in mAttr.keys():
             value = mAttr[iattr]
+          elif hasattr(self, "read"+iattr):
+            value = str(getattr(self, "read%s" % (iattr) )())
           else:
             # if all other attempts fail, read it at the top level of the
             #   DICOM dataset (it must be a foreign key)
@@ -314,3 +327,11 @@ class DICOMParser(object):
 
           miAttr[iattr] = value
         self.tables["SR1500_Measurements"].append(miAttr)
+
+    def readPersonObserverName(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Person Observer Name")
+      return item.PersonName
+
+    def readObserverType(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Observer Type")
+      return item.ConceptCodeSequnce[0].CodeMeaning

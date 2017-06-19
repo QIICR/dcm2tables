@@ -5,6 +5,7 @@ import json
 
 #dcmqiPath = '/Users/fedorov/local/builds/dcmqi-refactored/dcmqi-build/bin'
 dcmqiPath = '/Users/BillClifford/local/builds/dcmqi-mac/bin'
+dcmqiPath = '/Users/fedorov/Downloads/dcmqi-mac/bin'
 tempPath = '.'
 
 # Inputs:
