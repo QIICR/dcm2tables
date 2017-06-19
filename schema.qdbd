@@ -214,6 +214,8 @@ Rows
 Columns
 SegmentationType
 ContentCreatorName
+ClinicalTrialTimePointID
+ClinicalTrialSeriesID
 
 # SR-specific attributes
 SR
@@ -222,11 +224,6 @@ SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 TemplateIdentifier
 CompletionFlag
 VerificationFlag
-# the following are concepts mapped to column names, and values extracted from the
-#  SR tree. This is not generic and will not work for an arbitrary SR that does not
-#  conform to TID 1500
-PersonObserverName # <has obs context PNAME:(,,"Person Observer Name")="User2">
-ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
 
 # Flattened selected content of SegmentSequence
 #  Use modality prefix to establish relationships as to what modalities
@@ -267,6 +264,11 @@ ReferencedSOPClassUID
 SR1500_MeasurementGroups
 -
 SOPInstanceUID FK >- SR.SOPInstanceUID
+# the following are concepts mapped to column names, and values extracted from the
+#  SR tree. This is not generic and will not work for an arbitrary SR that does not
+#  conform to TID 1500
+PersonObserverName # <has obs context PNAME:(,,"Person Observer Name")="User2">
+ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
 activitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
