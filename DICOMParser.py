@@ -37,6 +37,8 @@ class DICOMParser(object):
         from subprocess import call
         outputJSON = os.path.join(self.tempPath,"measurements.json")
         tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
+        # assume dcmqi binaries are in the path
+        tid1500reader = "tid1500reader"
         print tid1500reader
         call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
         with open(outputJSON) as jsonFile:
@@ -172,6 +174,14 @@ class DICOMParser(object):
     if evidenceSeq:
       self.readEvidenceSequence(evidenceSeq)
 
+  def readPersonObserverName(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Person Observer Name")
+      return item.PersonName
+
+  def readObserverType(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Observer Type")
+      return item.ConceptCodeSequence[0].CodeMeaning
+
   def readReferencedSeriesSequence(self, seq):
     for r in seq:
       seriesUID = r.data_element("SeriesInstanceUID").value
@@ -235,7 +245,6 @@ class DICOMParser(object):
     for frame in pfFG:
       fAttr = {}
       for attr in self.rulesDictionary["SEG_SegmentFrames"]:
-        # print "Looking for",attr
         # recursively search in the per-frame FG item
         value = self.recursiveFindInDataset(frame,attr)
         if value is None:
@@ -287,6 +296,8 @@ class DICOMParser(object):
           concept = attr.split("_")[0]
           item = attr.split("_")[1]
           value = mg[concept][item]
+        elif hasattr(self, "read"+attr):
+            value = str(getattr(self, "read%s" % (attr) )())
         else:
           # if all other attempts fail, read it at the top level of the
           #   DICOM dataset (it must be a foreign key)
@@ -328,10 +339,4 @@ class DICOMParser(object):
           miAttr[iattr] = value
         self.tables["SR1500_Measurements"].append(miAttr)
 
-    def readPersonObserverName(self):
-      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Person Observer Name")
-      return item.PersonName
 
-    def readObserverType(self):
-      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Observer Type")
-      return item.ConceptCodeSequnce[0].CodeMeaning
