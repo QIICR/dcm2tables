@@ -1,7 +1,7 @@
 import pydicom, os, sys, json
 
 class DICOMParser(object):
-  def __init__(self,fileName,rulesDictionary,dcmqiPath=None,tempPath=None):
+  def __init__(self,fileName,rulesDictionary=None,dcmqiPath=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
@@ -37,6 +37,8 @@ class DICOMParser(object):
         from subprocess import call
         outputJSON = os.path.join(self.tempPath,"measurements.json")
         tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
+        # assume dcmqi binaries are in the path
+        tid1500reader = "tid1500reader"
         print tid1500reader
         call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
         with open(outputJSON) as jsonFile:
@@ -172,6 +174,14 @@ class DICOMParser(object):
     if evidenceSeq:
       self.readEvidenceSequence(evidenceSeq)
 
+  def readPersonObserverName(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Person Observer Name")
+      return item.PersonName
+
+  def readObserverType(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Observer Type")
+      return item.ConceptCodeSequence[0].CodeMeaning
+
   def readReferencedSeriesSequence(self, seq):
     for r in seq:
       seriesUID = r.data_element("SeriesInstanceUID").value
@@ -235,7 +245,6 @@ class DICOMParser(object):
     for frame in pfFG:
       fAttr = {}
       for attr in self.rulesDictionary["SEG_SegmentFrames"]:
-        # print "Looking for",attr
         # recursively search in the per-frame FG item
         value = self.recursiveFindInDataset(frame,attr)
         if value is None:
@@ -264,6 +273,14 @@ class DICOMParser(object):
         return value
     return None
 
+  def findItemByConceptNameInContentSequence(self,seq,conceptName):
+    for item in seq:
+      if type(item) == "pydicom.sequence.Sequence":
+        self.findByConceptNameInContentSequence(item,conceptName)
+      elif item.ConceptNameCodeSequence[0].CodeMeaning == conceptName:
+        return item
+    return None
+
   def readMeasurements(self,measurements):
     self.tables["SR1500_MeasurementGroups"] = []
     self.tables["SR1500_Measurements"] = []
@@ -279,10 +296,15 @@ class DICOMParser(object):
           concept = attr.split("_")[0]
           item = attr.split("_")[1]
           value = mg[concept][item]
+        elif hasattr(self, "read"+attr):
+            value = str(getattr(self, "read%s" % (attr) )())
         else:
           # if all other attempts fail, read it at the top level of the
           #   DICOM dataset (it must be a foreign key)
-          value = self.dcm.data_element(attr).value
+          try:
+            value = self.dcm.data_element(attr).value
+          except:
+            print "Failed to look up",attr
         mAttr[attr] = value
 
       self.tables["SR1500_MeasurementGroups"].append(mAttr)
@@ -307,6 +329,8 @@ class DICOMParser(object):
           # So this is a tiny bit different from the code above!
           elif iattr in mAttr.keys():
             value = mAttr[iattr]
+          elif hasattr(self, "read"+iattr):
+            value = str(getattr(self, "read%s" % (iattr) )())
           else:
             # if all other attempts fail, read it at the top level of the
             #   DICOM dataset (it must be a foreign key)
@@ -314,3 +338,5 @@ class DICOMParser(object):
 
           miAttr[iattr] = value
         self.tables["SR1500_Measurements"].append(miAttr)
+
+
