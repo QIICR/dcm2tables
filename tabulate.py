@@ -1,9 +1,10 @@
 import os, sys, json, pandas
 from QDBDParser import QDBDParser
-from DICOMParser import DICOMParser
+from SRCDParser import SRCDParser
 import json
 
-dcmqiPath = '/Users/fedorov/local/builds/dcmqi-refactored/dcmqi-build/bin'
+#dcmqiPath = '/Users/fedorov/local/builds/dcmqi-refactored/dcmqi-build/bin'
+dcmqiPath = '/Users/BillClifford/local/builds/dcmqi-mac/bin'
 tempPath = '.'
 
 # Inputs:
@@ -27,8 +28,9 @@ def main():
   for root,dirs,files in os.walk(sys.argv[2]):
     for f in files:
       dcmName = os.path.join(root,f)
+      print dcmName
       try:
-        dicomParser = DICOMParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
+        dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
       except:
         "Failed to read as DICOM:",dcmName
         continue
@@ -52,7 +54,7 @@ def main():
 
   for t in tables.keys():
     if type(tables[t]) == pandas.DataFrame:
-      tables[t].to_csv(t+".csv",sep='\t',index=False)
+      tables[t].to_csv(t+".tsv",index=False,sep='\t')
 
 if __name__ == '__main__':
   main()
