@@ -33,7 +33,7 @@ def main():
       try:
         dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
       except:
-        "Failed to read as DICOM:",dcmName
+        print "Failed to read as DICOM:",dcmName
         continue
 
       dicomParser.parse()

@@ -4,7 +4,9 @@ class DICOMParser(object):
   def __init__(self,fileName,rulesDictionary=None,dcmqiPath=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
+      print 'DICOM file read'
     except:
+      print 'Failed to read DICOM file using pydicom!'
       raise
 
     self.fileName = fileName
@@ -13,6 +15,8 @@ class DICOMParser(object):
     self.dcmqiPath = dcmqiPath
 
     self.tables = {}
+
+    print 'DONE'
 
   def getTables(self):
     return self.tables
@@ -65,14 +69,14 @@ class DICOMParser(object):
 
     for a in unresolvedAttributes:
       if hasattr(self,"read"+modality+a):
-         resolvedAttribute = str(getattr(self, "read%s%s" % (modality, a) )())
-         self.tables[modality][a] = resolvedAttribute
-         '''
-         if resolvedAttribute is not None:
-           print "Successfully resolved",a
-         else:
-           print "Failed to resolve",a
-         '''
+        resolvedAttribute = str(getattr(self, "read%s%s" % (modality, a) )())
+        self.tables[modality][a] = resolvedAttribute
+        '''
+        if resolvedAttribute is not None:
+          print "Successfully resolved",a
+        else:
+          print "Failed to resolve",a
+        '''
 
       #print self.tables[tableName][a]
 
@@ -177,6 +181,10 @@ class DICOMParser(object):
   def readPersonObserverName(self):
       item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Person Observer Name")
       return item.PersonName
+
+  def readDeviceObserverName(self):
+      item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Device Observer Name")
+      return item.TextValue
 
   def readObserverType(self):
       item = self.findItemByConceptNameInContentSequence(self.dcm.ContentSequence, "Observer Type")
@@ -288,16 +296,26 @@ class DICOMParser(object):
     for mg in measurements["Measurements"]:
       mAttr = {}
       for attr in self.rulesDictionary["SR1500_MeasurementGroups"]:
+        value = ''
         # first try to find it in the top-level of the measurements group json
         if attr in mg.keys():
-          value = mg[attr]
+          try:
+            value = mg[attr]
+          except:
+            pass
         elif attr.find("_")>0:
           # this is a code sequence
           concept = attr.split("_")[0]
           item = attr.split("_")[1]
-          value = mg[concept][item]
+          try:
+            value = mg[concept][item]
+          except:
+            pass
         elif hasattr(self, "read"+attr):
+          try:
             value = str(getattr(self, "read%s" % (attr) )())
+          except:
+            pass
         else:
           # if all other attempts fail, read it at the top level of the
           #   DICOM dataset (it must be a foreign key)

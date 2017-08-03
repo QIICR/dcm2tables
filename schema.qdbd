@@ -268,7 +268,8 @@ SOPInstanceUID FK >- SR.SOPInstanceUID
 #  SR tree. This is not generic and will not work for an arbitrary SR that does not
 #  conform to TID 1500
 PersonObserverName # <has obs context PNAME:(,,"Person Observer Name")="User2">
-ObserverType # <has obs context CODE:(,,"Observer Type")=(121006,DCM,"Person")>
+DeviceObserverName # <has obs context TEXT:(,,"Device Observer Name")="Automated Aortic Arch Refer...">
+ObserverType # can be either Person or Device!
 activitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
