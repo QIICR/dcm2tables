@@ -9,6 +9,7 @@ CompositeContext
 -
 SOPClassUID
 SOPInstanceUID PK
+StudyInstanceUID
 SeriesInstanceUID
 StudyDate
 SeriesDate
@@ -29,7 +30,7 @@ SoftwareVersions
 # Patient clinical data
 CD
 -
-PatientName FK - CompositeContext.PatientName
+SOPInstanceUID FK -> CompositeContext.SOPInstanceUID
 ProblemList_Problem_CodeValue
 ProblemList_Problem_CodingSchemeDesignator
 ProblemList_Problem_CodeMeaning
