@@ -29,14 +29,20 @@ def main():
   for root,dirs,files in os.walk(sys.argv[2]):
     for f in files:
       dcmName = os.path.join(root,f)
-      print dcmName
       try:
-        dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
+        dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath)
       except:
         print("Failed to read as DICOM:"+dcmName)
         continue
 
-      dicomParser.parse()
+      try:
+        dicomParser.parse()
+      except:
+        print("Failed to parse: "+dcmName)
+        import traceback
+        traceback.print_exc()
+        return
+
       dcmFileTables = dicomParser.getTables()
 
       for t in dcmFileTables:

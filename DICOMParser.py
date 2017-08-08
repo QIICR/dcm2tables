@@ -1,10 +1,9 @@
 import pydicom, os, sys, json
 
 class DICOMParser(object):
-  def __init__(self,fileName,rulesDictionary=None,dcmqiPath=None,tempPath=None):
+  def __init__(self,fileName,rulesDictionary=None,tempPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
-      print('DICOM file read')
     except:
       print('Failed to read DICOM file using pydicom!')
       raise
@@ -12,7 +11,6 @@ class DICOMParser(object):
     self.fileName = fileName
     self.rulesDictionary = rulesDictionary
     self.tempPath = tempPath
-    self.dcmqiPath = dcmqiPath
 
     self.tables = {}
 
@@ -38,7 +36,6 @@ class DICOMParser(object):
         # convert to JSON
         from subprocess import call
         outputJSON = os.path.join(self.tempPath,"measurements.json")
-        tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
         # assume dcmqi binaries are in the path
         tid1500reader = "tid1500reader"
         print(tid1500reader)
