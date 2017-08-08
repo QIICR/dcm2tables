@@ -33,7 +33,7 @@ def main():
       try:
         dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=dcmqiPath)
       except:
-        print "Failed to read as DICOM:",dcmName
+        print("Failed to read as DICOM:"+dcmName)
         continue
 
       dicomParser.parse()
@@ -55,7 +55,7 @@ def main():
 
   for t in tables.keys():
     if type(tables[t]) == pandas.DataFrame:
-      tables[t].to_csv(t+".tsv",index=False,sep='\t')
+      tables[t].to_csv(sys.argv[3]+"/"+t+".tsv",index=False,sep='\t')
 
 if __name__ == '__main__':
   main()
