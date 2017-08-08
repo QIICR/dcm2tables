@@ -64,4 +64,7 @@ def main():
       tables[t].to_csv(sys.argv[3]+"/"+t+".tsv",index=False,sep='\t')
 
 if __name__ == '__main__':
-  main()
+  if len(sys.argv)<4:
+    print("Usage: tabulate.py <schema file> <input DICOM directory> <output directory>")
+  else:
+    main()
