@@ -23,6 +23,7 @@ def main():
   tablesRules = tablesParser.getTablesSchema()
 
   tables = {}
+  tables["Instance2File"] = []
   for t in tablesRules.keys():
     tables[t] = []
 

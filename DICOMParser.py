@@ -14,6 +14,9 @@ class DICOMParser(object):
 
     self.tables = {}
 
+    self.tables["Instance2File"] = {}
+    self.tables["Instance2File"][self.dcm.SOPInstanceUID] = fileName
+
   def getTables(self):
     return self.tables
 
