@@ -45,7 +45,10 @@ def main():
 
       dcmFileTables = dicomParser.getTables()
 
-      for t in dcmFileTables:
+      if len(dcmFileTables.keys()) == 0:
+        print("Error: no tables generated for "+dcmName)
+
+      for t in dcmFileTables.keys():
         # print "Appending", dcmFileTables[t].values
         # print dicomTables[t]
         tableOrRow = dcmFileTables[t]

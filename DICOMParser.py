@@ -24,7 +24,7 @@ class DICOMParser(object):
     modality = self.dcm.Modality
 
     if modality in ["SR", "PT", "CT", "SEG", "RWV"]:
-        self.readTopLevelAttributes(self.dcm.Modality)
+      self.readTopLevelAttributes(self.dcm.Modality)
 
     if modality == "SEG":
       self.readSegments()
