@@ -6,9 +6,10 @@ class SRCDParser(DICOMParser):
     def parse(self):
         modality = self.dcm.Modality
         if modality == "SR":
-          self.readTopLevelAttributes("CD")
           if hasattr(self.dcm, "ContentTemplateSequence"):
             if self.dcm.ContentTemplateSequence[0].TemplateIdentifier == "QIICR_2000":
+              self.readTopLevelAttributes("CompositeContext")
+              self.readTopLevelAttributes("CD")
               self.ClinicalDataParser("CD")
             else:
               super(SRCDParser,self).parse()
