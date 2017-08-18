@@ -293,6 +293,9 @@ TrackingUniqueIdentifier FK >- SR1500_MeasurementGroups.TrackingUniqueIdentifier
 quantity_CodeValue
 quantity_CodingSchemeDesignator
 quantity_CodeMeaning
+units_CodeValue
+units_CodingSchemeDesignator
+units_CodeMeaning
 value
 derivationModifier_CodeValue
 derivationModifier_CodingSchemeDesignator
