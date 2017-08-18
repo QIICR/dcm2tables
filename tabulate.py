@@ -22,14 +22,17 @@ def main():
   tablesParser = QDBDParser(sys.argv[1])
   tablesRules = tablesParser.getTablesSchema()
 
-  tables = {}
-  tables["Instance2File"] = []
-  for t in tablesRules.keys():
-    tables[t] = []
-
   for root,dirs,files in os.walk(sys.argv[2]):
     for f in files:
+
+
+      tables = {}
+      tables["Instance2File"] = []
+      for t in tablesRules.keys():
+        tables[t] = []
+
       dcmName = os.path.join(root,f)
+
       try:
         dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath)
       except:
@@ -59,13 +62,18 @@ def main():
           for row in tableOrRow:
             tables[t].append(row)
 
-  for t in tables.keys():
-    if len(tables[t]):
-      tables[t] = pandas.DataFrame(tables[t])
+      for t in tables.keys():
+        if len(tables[t]):
+          tables[t] = pandas.DataFrame(tables[t])
 
-  for t in tables.keys():
-    if type(tables[t]) == pandas.DataFrame:
-      tables[t].to_csv(sys.argv[3]+"/"+t+".tsv",index=False,sep='\t')
+      for t in tables.keys():
+        if type(tables[t]) == pandas.DataFrame:
+          fileName = os.path.join(sys.argv[3],t+".tsv")
+          if not os.path.isfile(fileName):
+            tables[t].to_csv(fileName,index=False,sep='\t')
+          else:
+            tables[t].to_csv(fileName,index=False,sep='\t',mode='a',header=False)
+
 
 if __name__ == '__main__':
   if len(sys.argv)<4:
