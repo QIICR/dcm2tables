@@ -1,7 +1,16 @@
-import pydicom, os, sys, json
+import pydicom
+import os
+import json
+import platform
+
+
+class DCMQINotFoundError(Exception):
+  pass
+
 
 class DICOMParser(object):
-  def __init__(self,fileName,rulesDictionary=None,tempPath=None):
+
+  def __init__(self,fileName,rulesDictionary=None,tempPath=None, dcmqiPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
@@ -11,8 +20,9 @@ class DICOMParser(object):
     self.fileName = fileName
     self.rulesDictionary = rulesDictionary
     self.tempPath = tempPath
+    self.dcmqiPath = dcmqiPath
 
-    self.tables = {}
+    self.tables = dict()
 
     self.tables["Instance2File"] = {}
     self.tables["Instance2File"][self.dcm.SOPInstanceUID] = fileName
@@ -26,7 +36,7 @@ class DICOMParser(object):
 
     modality = self.dcm.Modality
 
-    if modality in ["SR", "PT", "CT", "SEG", "RWV"]:
+    if modality in ["MR", "SR", "PT", "CT", "SEG", "RWV"]:
       self.readTopLevelAttributes(self.dcm.Modality)
 
     if modality == "SEG":
@@ -36,16 +46,26 @@ class DICOMParser(object):
     if modality == "SR":
       tid = self.dcm.ContentTemplateSequence[0].TemplateIdentifier
       if tid == "1500":
-        # convert to JSON
         from subprocess import call
         outputJSON = os.path.join(self.tempPath,"measurements.json")
-        # assume dcmqi binaries are in the path
-        tid1500reader = "tid1500reader"
-        print(tid1500reader)
+        tid1500reader = self.getTID1500readerExecutable()
         call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
         with open(outputJSON) as jsonFile:
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)
+
+  def getTID1500readerExecutable(self):
+    if not self.dcmqiPath:
+      raise DCMQINotFoundError()
+    if platform.system() in ['Darwin', 'Linux']:
+      tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
+    elif platform.system() == 'Windows':
+      tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader.exe")
+    else:
+      raise Exception('could not determine system type')
+    if not os.path.exists(tid1500reader):
+      raise Exception('Could not find dcmqi executable tid1500reader.')
+    return tid1500reader
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}

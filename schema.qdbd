@@ -7,9 +7,12 @@
 # common across modalities
 CompositeContext
 -
+InstitutionName
+StationName
+EquipmentUID
+ProductId
 SOPClassUID
 SOPInstanceUID PK
-StudyInstanceUID
 SeriesInstanceUID
 StudyDate
 SeriesDate
@@ -187,6 +190,24 @@ FilterType
 GeneratorPower
 FocalSpots
 ConvolutionKernel
+
+# MR-specific attributes (all top-level)
+MR
+-
+ScanningSequence
+SequenceVariant
+RepetitionTime
+EchoTime
+InversionTime
+EchoNumbers
+ImagingFrequency
+MagneticFieldStrength
+TriggerTime
+AcquisitionMatrix
+InPlanePhaseEncodingDirection
+FlipAngle
+NumberOfEchoes
+PulseSequenceName
 
 # Flattened (selectively)
 #  ReferencedImageRealWorldValueMappingSequence
