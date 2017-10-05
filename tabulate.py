@@ -72,13 +72,13 @@ def main(argv):
       except (DCMQINotFoundError, KeyError) as exc:
         print ("Failed to read DICOM %s" % dcmName)
         if type(exc) is exceptions.KeyError:
-          print "Missing key: %s " % exc.message
+          print ("Missing key: %s " % exc)
         else:
           print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
                 "additional parameter '-dcmqi <DCMQI binary path>'")
         print ("Skipping %s" %dcmName)
       except Exception:
-        print("Failed to parse: "+dcmName)
+        print ("Failed to parse: "+dcmName)
         import traceback
         traceback.print_exc()
         return
