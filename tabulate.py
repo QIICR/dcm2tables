@@ -2,6 +2,7 @@ import os
 import sys
 import pandas
 import logging
+import exceptions
 import argparse
 from DICOMParser import DCMQINotFoundError
 from QDBDParser import QDBDParser
@@ -58,10 +59,13 @@ def main(argv):
 
       try:
         dicomParser.parse()
-      except DCMQINotFoundError:
-        print ("Failed to read DICOM %s\n " % dcmName)
-        print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
-              "additional parameter '-dcmqi <DCMQI binary path>'")
+      except (DCMQINotFoundError, KeyError) as exc:
+        print ("Failed to read DICOM %s" % dcmName)
+        if type(exc) is exceptions.KeyError:
+          print "Missing key: %s " % exc.message
+        else:
+          print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
+                "additional parameter '-dcmqi <DCMQI binary path>'")
         print ("Skipping %s" %dcmName)
       except Exception:
         print("Failed to parse: "+dcmName)
