@@ -39,6 +39,16 @@ def main(argv):
                     "executables. You can either specify dcmqi as an environment variable 'DCMQI_PATH' or as an "
                     "additional parameter '-dcmqi <DCMQI binary path>'")
 
+  if not os.path.exists(args.outputDirectory):
+    create = raw_input('Output directory does not exist. Would you like to create it? [y/n]:\n')
+    if create.lower() in ["y", "yes", "true"]:
+      print "Creating directory %s" %args.outputDirectory
+      os.makedirs(args.outputDirectory)
+    else:
+      if not create.lower() in ["", "n", "no", "false"]:
+        print ("Entered letters %s unknown to this program." % create)
+      return
+
   tablesParser = QDBDParser(args.schema)
   tablesRules = tablesParser.getTablesSchema()
 

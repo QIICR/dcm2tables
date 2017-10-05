@@ -19,8 +19,9 @@ Data:
 
 # Usage
 
-`python tabulate.py schema.qdbd <location of a directory with QIN-HEADNECK
-data>`
+```
+python tabulate.py -s schema.qdbd -d <location of a directory with DICOM data> -o <output location to store csv tables>
+```
 
 The script will create tables stored in CSV in the directory where it was
 executed.
