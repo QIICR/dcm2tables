@@ -194,6 +194,7 @@ ConvolutionKernel
 # MR-specific attributes (all top-level)
 MR
 -
+SOPInstanceUID
 ScanningSequence
 SequenceVariant
 RepetitionTime
