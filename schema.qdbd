@@ -13,6 +13,7 @@ EquipmentUID
 ProductId
 SOPClassUID
 SOPInstanceUID PK
+StudyInstanceUID
 SeriesInstanceUID
 StudyDate
 SeriesDate
@@ -194,7 +195,7 @@ ConvolutionKernel
 # MR-specific attributes (all top-level)
 MR
 -
-SOPInstanceUID
+SOPInstanceUID FK - CompositeContext.SOPInstanceUID
 ScanningSequence
 SequenceVariant
 RepetitionTime
