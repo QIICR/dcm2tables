@@ -54,8 +54,9 @@ def main(argv):
 
   for root,dirs,files in os.walk(args.inputDirectory):
     for f in files:
-      tables = dict()
-      tables["Instance2File"] = []
+      tables = {
+        "Instance2File": []
+      }
       for t in tablesRules.keys():
         tables[t] = []
 

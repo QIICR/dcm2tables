@@ -25,7 +25,8 @@ class DICOMParser(object):
     self.tables = dict()
 
     self.tables["Instance2File"] = {}
-    self.tables["Instance2File"][self.dcm.SOPInstanceUID] = fileName
+    self.tables["Instance2File"]["SOPInstanceUID"] = self.dcm.SOPInstanceUID
+    self.tables["Instance2File"]["FileName"] = fileName
 
   def getTables(self):
     return self.tables

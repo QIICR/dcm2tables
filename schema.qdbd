@@ -196,6 +196,8 @@ ConvolutionKernel
 MR
 -
 SOPInstanceUID FK - CompositeContext.SOPInstanceUID
+SliceThickness
+PixelSpacing
 ScanningSequence
 SequenceVariant
 RepetitionTime

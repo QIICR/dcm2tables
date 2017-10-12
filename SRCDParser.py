@@ -23,11 +23,11 @@ class SRCDParser(DICOMParser):
     self.tables['CD']=[self.tables['CD']]
     for container in ('ProblemList','SocialHistory','TumorStaging','MedicalHistory','Biopsy','Surgery','Radiotherapy',
           'Chemotherapy','OriginalPathology','CervicalLymphNodeGroupExcision','DiseaseOutcome'):
-      str(getattr(self, "readCD%s" % (container))(container))
+      str(getattr(self, "readCD%s" % container)(container))
       completedContainers.append(container)
 
   def readCDProblemList(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       dataElement=dataElement[0].ContentSequence
       self.readCDValue(container, 'Code', 'Problem', 'Problem', dataElement[0])
@@ -39,14 +39,14 @@ class SRCDParser(DICOMParser):
         self.tables['CD'] += destTables
 
   def readCDSocialHistory(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       self.readCDValue(container, 'Code', 'TobaccoSmokingBehavior', 'Tobacco Smoking Behavior', dataElement)
       self.readCDValue(container, 'Code', 'AlcoholConsumption', 'Alcohol consumption', dataElement)
       self.readCDValue(container, 'Code', 'DetailsOfTobaccoChewing', 'Details of tobacco chewing', dataElement)
 
   def readCDTumorStaging(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       self.readCDValue(container, 'Code', "PrimaryTumorSite", "Primary tumor site", dataElement)
       self.readCDValue(container, "Code", "TumorStageFinding", "Tumor stage finding", dataElement)
@@ -57,13 +57,13 @@ class SRCDParser(DICOMParser):
         self.readCDValue(container, "Code", "MStage", "M Stage", dataElement)
 
   def readCDMedicalHistory(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       self.readCDValue(container, "Code", "RadiationTherapy", "History of radiation therapy", dataElement)
       self.readCDValue(container, "Code", "MalignantNeoplasm", "History of malignant neoplasm", dataElement)
 
   def readCDBiopsy(self, container):
-    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    dataElements = getattr(self, "getCD%sContainer" % container)()
     if not dataElements is None and dataElements.VM>0:
       srcTables=self.tables['CD']
       self.tables['CD']=[]
@@ -77,7 +77,7 @@ class SRCDParser(DICOMParser):
         self.tables['CD'] += destTables
 
   def readCDSurgery(self, container):
-    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    dataElements = getattr(self, "getCD%sContainer" % container)()
     if not dataElements is None and len(dataElements)>0:
       srcTables=self.tables['CD']
       self.tables['CD']=[]
@@ -94,7 +94,7 @@ class SRCDParser(DICOMParser):
         self.tables['CD'] += destTables
 
   def readCDRadiotherapy(self, container):
-    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    dataElements = getattr(self, "getCD%sContainer" % container)()
     if not dataElements is None and len(dataElements)>0:
       srcTables=self.tables['CD']
       self.tables['CD']=[]
@@ -113,7 +113,7 @@ class SRCDParser(DICOMParser):
         self.tables['CD'] += destTables
 
   def readCDChemotherapy(self, container):
-    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    dataElements = getattr(self, "getCD%sContainer" % container)()
     if not dataElements is None and len(dataElements)>0:
       srcTables = self.tables['CD']
       self.tables['CD'] = []
@@ -128,7 +128,7 @@ class SRCDParser(DICOMParser):
         self.tables['CD'] += destTables
 
   def readCDOriginalPathology(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       self.readCDValue(container, "Code", "Pathology", "Pathology", dataElement)
       dataElement = dataElement[0].data_element('ContentSequence')
@@ -143,7 +143,7 @@ class SRCDParser(DICOMParser):
                  "Status of vascular invasion by tumor", dataElement)
 
   def readCDCervicalLymphNodeGroupExcision(self, container):
-    dataElements = getattr(self, "getCD%sContainer" % (container))()
+    dataElements = getattr(self, "getCD%sContainer" % container)()
     if not dataElements is None:
       lymphNodeGroup = [dataElement for dataElement in dataElements if
         self.readCDValue(container, "Code", "StatusOfExtraCapsularExtensionOfNodalTumor",
@@ -168,7 +168,7 @@ class SRCDParser(DICOMParser):
           self.tables['CD'] += destTables
 
   def readCDDiseaseOutcome(self, container):
-    dataElement = getattr(self, "getCD%sContainer" % (container))()
+    dataElement = getattr(self, "getCD%sContainer" % container)()
     if not dataElement is None:
       self.readCDValue(container, "Date", "FollowupVisitDate", "Follow-up visit date", dataElement)
       self.readCDValue(container, "Code", "FollowupStatus", "Followup status", dataElement)
