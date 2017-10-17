@@ -2,7 +2,6 @@ import os
 import sys
 import pandas
 import logging
-import exceptions
 import argparse
 from DICOMParser import DCMQINotFoundError
 from QDBDParser import QDBDParser
@@ -65,21 +64,18 @@ def main(argv):
       try:
         dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=args.dcmqiPath)
       except:
-        print("Failed to read as DICOM:"+dcmName)
+        print("Failed to read as DICOM: %s" % dcmName)
         continue
 
       try:
         dicomParser.parse()
-      except (DCMQINotFoundError, KeyError) as exc:
-        print ("Failed to read DICOM %s" % dcmName)
-        if type(exc) is exceptions.KeyError:
-          print ("Missing key: %s " % exc)
-        else:
-          print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
-                "additional parameter '-dcmqi <DCMQI binary path>'")
-        print ("Skipping %s" %dcmName)
+      except DCMQINotFoundError as exc:
+        print ("Failed to read DICOM %s: %s" % (dcmName, exc))
+        print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
+              "additional parameter '-dcmqi <DCMQI binary path>'")
+        print ("Skipping %s" % dcmName)
       except Exception:
-        print ("Failed to parse: "+dcmName)
+        print ("Failed to parse: %s " % dcmName)
         import traceback
         traceback.print_exc()
         return
@@ -87,7 +83,7 @@ def main(argv):
       dcmFileTables = dicomParser.getTables()
 
       if len(dcmFileTables.keys()) == 0:
-        print("Error: no tables generated for "+dcmName)
+        print("Error: no tables generated for %s" % dcmName)
 
       for t in dcmFileTables.keys():
         # print "Appending", dcmFileTables[t].values
