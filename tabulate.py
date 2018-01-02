@@ -3,7 +3,7 @@ import sys
 import pandas
 import logging
 import argparse
-from DICOMParser import DCMQINotFoundError
+from DICOMParser import DCMQINotFoundError, TIDNotSupportedError
 from QDBDParser import QDBDParser
 from SRCDParser import SRCDParser
 
@@ -74,6 +74,8 @@ def main(argv):
         print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
               "additional parameter '-dcmqi <DCMQI binary path>'")
         print ("Continuing without reading DICOM SR measurements.")
+      except TIDNotSupportedError as exc:
+        print (exc)
       except Exception:
         print ("Failed to parse: %s " % dcmName)
         import traceback
