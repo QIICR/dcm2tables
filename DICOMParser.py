@@ -49,9 +49,9 @@ class DICOMParser(object):
       tid = self.dcm.ContentTemplateSequence[0].TemplateIdentifier
       if tid == "1500":
         from subprocess import call
-        outputJSON = os.path.join(self.tempPath,"measurements.json")
+        outputJSON = os.path.join(self.tempPath, "measurements.json")
         tid1500reader = self.getTID1500readerExecutable()
-        call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
+        call([tid1500reader, "--inputDICOM", self.fileName, "--outputMetadata", outputJSON])
         with open(outputJSON) as jsonFile:
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)

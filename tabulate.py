@@ -70,10 +70,10 @@ def main(argv):
       try:
         dicomParser.parse()
       except DCMQINotFoundError as exc:
-        print ("Failed to read DICOM %s: %s" % (dcmName, exc))
+        print ("Reading of DICOM SR measurements impossible: %s " % exc)
         print ("Make sure that you specified dcmqi path either in your environment variable 'DCMQI_PATH' or as an "
               "additional parameter '-dcmqi <DCMQI binary path>'")
-        print ("Skipping %s" % dcmName)
+        print ("Continuing without reading DICOM SR measurements.")
       except Exception:
         print ("Failed to parse: %s " % dcmName)
         import traceback
