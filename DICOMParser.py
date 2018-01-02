@@ -55,6 +55,8 @@ class DICOMParser(object):
         with open(outputJSON) as jsonFile:
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)
+      else:
+        print ("DICOM SR TID %s is currently not supported." % tid)
 
   def getTID1500readerExecutable(self):
     if not self.dcmqiPath:
