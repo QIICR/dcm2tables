@@ -8,6 +8,9 @@ from collections import OrderedDict
 class DCMQINotFoundError(Exception):
   pass
 
+class TIDNotSupportedError(Exception):
+  pass
+
 
 class DICOMParser(object):
 
@@ -56,7 +59,7 @@ class DICOMParser(object):
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)
       else:
-        print ("DICOM SR TID %s is currently not supported." % tid)
+        raise TIDNotSupportedError("DICOM SR TID %s is currently not supported." % tid)
 
   def getTID1500readerExecutable(self):
     if not self.dcmqiPath:
@@ -68,7 +71,7 @@ class DICOMParser(object):
     else:
       raise Exception('could not determine system type')
     if not os.path.exists(tid1500reader):
-      raise Exception('Could not find dcmqi executable tid1500reader.')
+      raise DCMQINotFoundError('Could not find dcmqi executable tid1500reader.')
     return tid1500reader
 
   def readTopLevelAttributes(self,modality):
