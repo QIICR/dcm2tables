@@ -11,6 +11,24 @@ class DCMQINotFoundError(Exception):
 class TIDNotSupportedError(Exception):
   pass
 
+# recipe from 
+# https://stackoverflow.com/questions/377017/test-if-executable-exists-in-python/377028#377028
+def which(program):
+  import os
+  def is_exe(fpath):
+      return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+  fpath, fname = os.path.split(program)
+  if fpath:
+    if is_exe(program):
+      return program
+  else:
+    for path in os.environ["PATH"].split(os.pathsep):
+      exe_file = os.path.join(path, program)
+      if is_exe(exe_file):
+        return exe_file
+  return None
+
 
 class DICOMParser(object):
 
@@ -18,7 +36,7 @@ class DICOMParser(object):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
-      print('Failed to read DICOM file using pydicom!')
+      print('Failed to read DICOM file using pydicom: '+fileName)
       raise
 
     self.fileName = fileName
@@ -62,17 +80,15 @@ class DICOMParser(object):
         raise TIDNotSupportedError("DICOM SR TID %s is currently not supported." % tid)
 
   def getTID1500readerExecutable(self):
-    if not self.dcmqiPath:
-      raise DCMQINotFoundError()
-    if platform.system() in ['Darwin', 'Linux']:
-      tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader")
-    elif platform.system() == 'Windows':
-      tid1500reader = os.path.join(self.dcmqiPath,"tid1500reader.exe")
-    else:
-      raise Exception('could not determine system type')
-    if not os.path.exists(tid1500reader):
+    tid1500ReaderPath = 'tid1500reader'
+    if platform.system() == 'Windows':
+      tid1500ReaderPath += ".exe"
+    if self.dcmqiPath:
+      tid1500ReaderPath = os.path.join(self.dcmqiPath,tid1500ReaderPath)
+    tid1500ReaderPath = which(tid1500ReaderPath)
+    if not tid1500ReaderPath:
       raise DCMQINotFoundError('Could not find dcmqi executable tid1500reader.')
-    return tid1500reader
+    return tid1500ReaderPath
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
