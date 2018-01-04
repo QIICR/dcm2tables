@@ -14,7 +14,6 @@ class QDBDParser:
     content = [c for c in content if not c.startswith("#")]
     content = [c.split('#')[0].split(' ')[0].strip() for c in content]
 
-    readTableName = True
     tableName = None
     for c in content:
       if not len(c):

@@ -1,21 +1,54 @@
-import pydicom, os, sys, json
+import pydicom
+import os
+import json
+import platform
+from collections import OrderedDict
+
+
+class DCMQINotFoundError(Exception):
+  pass
+
+class TIDNotSupportedError(Exception):
+  pass
+
+# recipe from 
+# https://stackoverflow.com/questions/377017/test-if-executable-exists-in-python/377028#377028
+def which(program):
+  import os
+  def is_exe(fpath):
+      return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+  fpath, fname = os.path.split(program)
+  if fpath:
+    if is_exe(program):
+      return program
+  else:
+    for path in os.environ["PATH"].split(os.pathsep):
+      exe_file = os.path.join(path, program)
+      if is_exe(exe_file):
+        return exe_file
+  return None
+
 
 class DICOMParser(object):
-  def __init__(self,fileName,rulesDictionary=None,tempPath=None):
+
+  def __init__(self,fileName,rulesDictionary=None,tempPath=None, dcmqiPath=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
-      print('Failed to read DICOM file using pydicom!')
+      print('Failed to read DICOM file using pydicom: '+fileName)
       raise
 
     self.fileName = fileName
     self.rulesDictionary = rulesDictionary
     self.tempPath = tempPath
+    self.dcmqiPath = dcmqiPath
 
-    self.tables = {}
+    self.tables = dict()
 
-    self.tables["Instance2File"] = {}
-    self.tables["Instance2File"][self.dcm.SOPInstanceUID] = fileName
+    self.tables["Instance2File"] = OrderedDict()
+    self.tables["Instance2File"]["SOPInstanceUID"] = self.dcm.SOPInstanceUID
+    self.tables["Instance2File"]["FileName"] = fileName
 
   def getTables(self):
     return self.tables
@@ -26,7 +59,7 @@ class DICOMParser(object):
 
     modality = self.dcm.Modality
 
-    if modality in ["SR", "PT", "CT", "SEG", "RWV"]:
+    if modality in ["MR", "SR", "PT", "CT", "SEG", "RWV"]:
       self.readTopLevelAttributes(self.dcm.Modality)
 
     if modality == "SEG":
@@ -36,16 +69,26 @@ class DICOMParser(object):
     if modality == "SR":
       tid = self.dcm.ContentTemplateSequence[0].TemplateIdentifier
       if tid == "1500":
-        # convert to JSON
         from subprocess import call
-        outputJSON = os.path.join(self.tempPath,"measurements.json")
-        # assume dcmqi binaries are in the path
-        tid1500reader = "tid1500reader"
-        print(tid1500reader)
-        call([tid1500reader,"--inputDICOM",self.fileName,"--outputMetadata",outputJSON])
+        outputJSON = os.path.join(self.tempPath, "measurements.json")
+        tid1500reader = self.getTID1500readerExecutable()
+        call([tid1500reader, "--inputDICOM", self.fileName, "--outputMetadata", outputJSON])
         with open(outputJSON) as jsonFile:
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)
+      else:
+        raise TIDNotSupportedError("DICOM SR TID %s is currently not supported." % tid)
+
+  def getTID1500readerExecutable(self):
+    tid1500ReaderPath = 'tid1500reader'
+    if platform.system() == 'Windows':
+      tid1500ReaderPath += ".exe"
+    if self.dcmqiPath:
+      tid1500ReaderPath = os.path.join(self.dcmqiPath,tid1500ReaderPath)
+    tid1500ReaderPath = which(tid1500ReaderPath)
+    if not tid1500ReaderPath:
+      raise DCMQINotFoundError('Could not find dcmqi executable tid1500reader.')
+    return tid1500ReaderPath
 
   def readTopLevelAttributes(self,modality):
     self.tables[modality] = {}
@@ -88,7 +131,7 @@ class DICOMParser(object):
   # given the input data element, which must be a SQ, and must have the structure
   #  of items that follow the pattern ConceptNameCodeSequence/ConceptCodeSequence, find the sequence item that has
   #  ConceptNameCodeSequence > CodeMeaning, and return the data element corresponding
-  #  to the ConceptCodeSequnce matching the requested ConceptNameCodeSequence meaning
+  #  to the ConceptCodeSequence matching the requested ConceptNameCodeSequence meaning
   def getConceptCodeByConceptNameMeaning(self,dataElement,conceptNameMeaning):
     for item in dataElement:
       if item.ConceptNameCodeSequence[0].CodeMeaning == conceptNameMeaning:
@@ -164,11 +207,11 @@ class DICOMParser(object):
     self.tables["References"] = []
     try:
       refSeriesSeq = self.dcm.data_element("ReferencedSeriesSequence")
-    except:
+    except KeyError:
       refSeriesSeq = None
     try:
       evidenceSeq = self.dcm.data_element("CurrentRequestedProcedureEvidenceSequence")
-    except:
+    except KeyError:
       evidenceSeq = None
 
     if refSeriesSeq:
@@ -191,24 +234,35 @@ class DICOMParser(object):
   def readReferencedSeriesSequence(self, seq):
     for r in seq:
       seriesUID = r.data_element("SeriesInstanceUID").value
-      refInstancesSeq = r.data_element("ReferencedInstanceSequence").value
-      for i in refInstancesSeq:
-        refClassUID = i.ReferencedSOPClassUID
-        refInstanceUID = i.ReferencedSOPInstanceUID
-
-        self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
+      try:
+        refInstancesSeq = r.data_element("ReferencedInstanceSequence").value
+        for item in refInstancesSeq:
+          self.readReference(item, seriesUID)
+      except KeyError as exc:
+        print ("Missing key: %s " % exc)
 
   def readEvidenceSequence(self, seq):
     for l1item in seq:
-      seriesSeq = l1item.data_element("ReferencedSeriesSequence").value
-      for l2item in seriesSeq:
-        sopSeq = l2item.data_element("ReferencedSOPSequence").value
-        seriesUID = l2item.SeriesInstanceUID
-        for l3item in sopSeq:
-          refClassUID = l3item.ReferencedSOPClassUID
-          refInstanceUID = l3item.ReferencedSOPInstanceUID
+      try:
+        seriesSeq = l1item.data_element("ReferencedSeriesSequence").value
+        for l2item in seriesSeq:
+          sopSeq = l2item.data_element("ReferencedSOPSequence").value
+          seriesUID = l2item.SeriesInstanceUID
+          for item in sopSeq:
+            self.readReference(item, seriesUID)
+      except KeyError as exc:
+        print ("Missing key: %s " % exc)
 
-          self.tables["References"].append({"SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID, "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID})
+  def readReference(self, item, seriesUID):
+    try:
+      refClassUID = item.ReferencedSOPClassUID
+      refInstanceUID = item.ReferencedSOPInstanceUID
+      self.tables["References"].append({
+        "SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID,
+        "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID
+      })
+    except KeyError as exc:
+      print ("Missing key: %s " % exc)
 
   def readSegments(self):
     seq = self.dcm.data_element("SegmentSequence")
@@ -217,7 +271,7 @@ class DICOMParser(object):
     for segment in seq:
       sAttr = {}
 
-      # Attrubute should be either in a sub-sequence, at the
+      # Attribute should be either in a sub-sequence, at the
       #  top level of the sequence, or at the top level of the dataset
       #  Try all those options
       for attr in self.rulesDictionary["SEG_Segments"]:
@@ -245,7 +299,7 @@ class DICOMParser(object):
 
     self.tables["SEG_SegmentFrames"] = []
 
-    # Attrubute should be either in a sub-sequence, in the shared FG,
+    # Attribute should be either in a sub-sequence, in the shared FG,
     #  or at the top level of the dataset
     #  Try all those options
     for frame in pfFG:
@@ -311,7 +365,7 @@ class DICOMParser(object):
             pass
         elif hasattr(self, "read"+attr):
           try:
-            value = str(getattr(self, "read%s" % (attr) )())
+            value = str(getattr(self, "read%s" % attr )())
           except:
             pass
         else:
@@ -346,7 +400,7 @@ class DICOMParser(object):
           elif iattr in mAttr.keys():
             value = mAttr[iattr]
           elif hasattr(self, "read"+iattr):
-            value = str(getattr(self, "read%s" % (iattr) )())
+            value = str(getattr(self, "read%s" % iattr )())
           else:
             # if all other attempts fail, read it at the top level of the
             #   DICOM dataset (it must be a foreign key)
