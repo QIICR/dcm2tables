@@ -13,6 +13,7 @@ Software:
 * pandas
 * pydicom (must be installed from source! distribution available via pip is too
   old and does not have some of the DICOM dictionary entries we parse)
+* [dcmqi](https://github.com/qiicr/dcmqi) is required to generate certain object-specific tables for such objects as DICOM Segmentations and measurements structured reports; it is best if you make sure dcmqi converters are in your path prior to running the script
 
 Data:
 * https://wiki.cancerimagingarchive.net/display/Public/QIN-HEADNECK
