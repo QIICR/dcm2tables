@@ -393,7 +393,7 @@ class DICOMParser(object):
             try:
               value = mi[concept][item]
             except:
-              continue
+              value = "NA"
           # the attribute is one level above!
           #  our secondary foreign key is TrackingUniqueIdentifier ...
           # So this is a tiny bit different from the code above!
