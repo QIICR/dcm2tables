@@ -11,7 +11,7 @@ class DCMQINotFoundError(Exception):
 class TIDNotSupportedError(Exception):
   pass
 
-# recipe from 
+# recipe from
 # https://stackoverflow.com/questions/377017/test-if-executable-exists-in-python/377028#377028
 def which(program):
   import os
@@ -281,7 +281,7 @@ class DICOMParser(object):
           try:
             sAttr[attr] = segment.data_element(seqName)[0].data_element(attrName).value
           except:
-            continue
+            sAttr[attr] = None
         else:
           try:
             sAttr[attr] = segment.data_element(attr).value
@@ -374,7 +374,7 @@ class DICOMParser(object):
           try:
             value = self.dcm.data_element(attr).value
           except:
-            print("Failed to look up"+attr)
+            print("Failed to look up \""+attr+"\"")
         mAttr[attr] = value
 
       self.tables["SR1500_MeasurementGroups"].append(mAttr)
@@ -393,7 +393,7 @@ class DICOMParser(object):
             try:
               value = mi[concept][item]
             except:
-              continue
+              value = None
           # the attribute is one level above!
           #  our secondary foreign key is TrackingUniqueIdentifier ...
           # So this is a tiny bit different from the code above!
@@ -405,6 +405,5 @@ class DICOMParser(object):
             # if all other attempts fail, read it at the top level of the
             #   DICOM dataset (it must be a foreign key)
             value = self.dcm.data_element(iattr).value
-
           miAttr[iattr] = value
         self.tables["SR1500_Measurements"].append(miAttr)

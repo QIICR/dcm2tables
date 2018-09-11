@@ -212,6 +212,7 @@ InPlanePhaseEncodingDirection
 FlipAngle
 NumberOfEchoes
 PulseSequenceName
+PixelBandwidth
 
 # Flattened (selectively)
 #  ReferencedImageRealWorldValueMappingSequence

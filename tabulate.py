@@ -60,6 +60,7 @@ def main(argv):
         tables[t] = []
 
       dcmName = os.path.join(root,f)
+      print("Parsing "+dcmName)
 
       try:
         dicomParser = SRCDParser(dcmName, tablesRules, tempPath=tempPath, dcmqiPath=args.dcmqiPath)
@@ -76,11 +77,12 @@ def main(argv):
         print ("Continuing without reading DICOM SR measurements.")
       except TIDNotSupportedError as exc:
         print (exc)
+        continue
       except Exception:
         print ("Failed to parse: %s " % dcmName)
         import traceback
         traceback.print_exc()
-        return
+        continue
 
       dcmFileTables = dicomParser.getTables()
 
