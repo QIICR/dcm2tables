@@ -433,5 +433,4 @@ class DICOMParser(object):
             #   DICOM dataset (it must be a foreign key)
             value = self.dcm.data_element(iattr).value
           qiAttr[iattr] = value
-          print(iattr+" ---> "+value)
         self.tables["SR1500_QualitativeEvaluations"].append(qiAttr)

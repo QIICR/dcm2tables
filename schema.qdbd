@@ -310,6 +310,8 @@ FindingSite_CodeMeaning
 measurementMethod_CodeValue
 measurementMethod_CodingSchemeDesignator
 measurementMethod_CodeMeaning
+measurementAlgorithmIdentification_AlgorithmName
+measurementAlgorithmIdentification_AlgorithmVersion
 
 # Individual measurements from the measurement groups
 SR1500_Measurements
@@ -329,6 +331,8 @@ derivationModifier_CodeMeaning
 measurementMethod_CodeValue
 measurementMethod_CodingSchemeDesignator
 measurementMethod_CodeMeaning
+measurementAlgorithmIdentification_AlgorithmName
+measurementAlgorithmIdentification_AlgorithmVersion
 
 SR1500_QualitativeEvaluations
 -
