@@ -330,6 +330,16 @@ measurementMethod_CodeValue
 measurementMethod_CodingSchemeDesignator
 measurementMethod_CodeMeaning
 
+SR1500_QualitativeEvaluations
+-
+SOPInstanceUID FK >- SR1500_MeasurementGroups.SOPInstanceUID
+TrackingUniqueIdentifier FK >- SR1500_MeasurementGroups.TrackingUniqueIdentifier
+conceptCode_CodeValue
+conceptCode_CodingSchemeDesignator
+conceptCode_CodeMeaning
+conceptValue_CodeValue
+conceptValue_CodingSchemeDesignator
+conceptValue_CodeMeaning
 
 # Flattened content of the
 # ReferencedSeriesSequence from

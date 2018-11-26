@@ -344,6 +344,7 @@ class DICOMParser(object):
   def readMeasurements(self,measurements):
     self.tables["SR1500_MeasurementGroups"] = []
     self.tables["SR1500_Measurements"] = []
+    self.tables["SR1500_QualitativeEvaluations"] = []
 
     for mg in measurements["Measurements"]:
       mAttr = {}
@@ -407,3 +408,30 @@ class DICOMParser(object):
             value = self.dcm.data_element(iattr).value
           miAttr[iattr] = value
         self.tables["SR1500_Measurements"].append(miAttr)
+
+      for qi in mg["qualitativeEvaluations"]:
+        # duplicated from the above
+        qiAttr = {}
+        for iattr in self.rulesDictionary["SR1500_QualitativeEvaluations"]:
+          # first try to find it in the top-level of the measurements group json
+          if iattr in qi.keys():
+            value = qi[iattr]
+          elif iattr.find("_")>0:
+            # this is a code sequence
+            concept = iattr.split("_")[0]
+            item = iattr.split("_")[1]
+            try:
+              value = qi[concept][item]
+            except:
+              value = None
+          elif iattr in mAttr.keys():
+            value = mAttr[iattr]
+          elif hasattr(self, "read"+iattr):
+            value = str(getattr(self, "read%s" % iattr )())
+          else:
+            # if all other attempts fail, read it at the top level of the
+            #   DICOM dataset (it must be a foreign key)
+            value = self.dcm.data_element(iattr).value
+          qiAttr[iattr] = value
+          print(iattr+" ---> "+value)
+        self.tables["SR1500_QualitativeEvaluations"].append(qiAttr)
