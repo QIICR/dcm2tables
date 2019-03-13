@@ -300,6 +300,9 @@ ObserverType # can be either Person or Device!
 activitySession
 TrackingIdentifier
 TrackingUniqueIdentifier PK
+ReferencedSegment
+SourceSeriesForImageSegmentation
+segmentationSOPInstanceUID
 Finding_CodeValue
 Finding_CodingSchemeDesignator
 Finding_CodeMeaning
