@@ -349,9 +349,11 @@ conceptValue_CodeMeaning
 # ReferencedSeriesSequence from
 #  the object types that contain it
 # These are instances pointed to from the given instance
+# Note that those attributes are hard-coded in the converter!
+# Adding new attributes to this section will have no effect!
 References
 -
 SOPInstanceUID FK -< CompositeContext.SOPInstanceUID
 ReferencedSOPClassUID string # to
 ReferencedSOPInstanceUID string
-SeriesInstanceUID string
+ReferencedSeriesInstanceUID string

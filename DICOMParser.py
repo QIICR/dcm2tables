@@ -259,7 +259,7 @@ class DICOMParser(object):
       refInstanceUID = item.ReferencedSOPInstanceUID
       self.tables["References"].append({
         "SOPInstanceUID": self.dcm.SOPInstanceUID, "ReferencedSOPClassUID": refClassUID,
-        "ReferencedSOPInstanceUID": refInstanceUID, "SeriesInstanceUID": seriesUID
+        "ReferencedSOPInstanceUID": refInstanceUID, "ReferencedSeriesInstanceUID": seriesUID
       })
     except KeyError as exc:
       print ("Missing key: %s " % exc)
@@ -285,7 +285,7 @@ class DICOMParser(object):
         else:
           try:
             sAttr[attr] = segment.data_element(attr).value
-          except:
+          except Exception as e:
             try:
               sAttr[attr] = self.dcm.data_element(attr).value
             except:
