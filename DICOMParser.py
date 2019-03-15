@@ -32,11 +32,11 @@ def which(program):
 
 class DICOMParser(object):
 
-  def __init__(self,fileName,rulesDictionary=None,tempPath=None, dcmqiPath=None):
+  def __init__(self,fileName,rulesDictionary=None,tempPath=None, dcmqiPath=None, logger=None):
     try:
       self.dcm = pydicom.read_file(fileName)
     except:
-      print('Failed to read DICOM file using pydicom: '+fileName)
+      self.logger.debug ('Failed to read DICOM file using pydicom: '+fileName)
       raise
 
     self.fileName = fileName
@@ -49,6 +49,11 @@ class DICOMParser(object):
     self.tables["Instance2File"] = OrderedDict()
     self.tables["Instance2File"]["SOPInstanceUID"] = self.dcm.SOPInstanceUID
     self.tables["Instance2File"]["FileName"] = fileName
+
+    if not logger:
+      self.logger = logging.getLogger("dcm2tables.DICOMParser")
+    else:
+      self.logger = logger
 
   def getTables(self):
     return self.tables
@@ -239,7 +244,7 @@ class DICOMParser(object):
         for item in refInstancesSeq:
           self.readReference(item, seriesUID)
       except KeyError as exc:
-        print ("Missing key: %s " % exc)
+        self.logger.error ("Missing key: %s " % exc)
 
   def readEvidenceSequence(self, seq):
     for l1item in seq:
@@ -251,7 +256,7 @@ class DICOMParser(object):
           for item in sopSeq:
             self.readReference(item, seriesUID)
       except KeyError as exc:
-        print ("Missing key: %s " % exc)
+        self.logger.error ("Missing key: %s " % exc)
 
   def readReference(self, item, seriesUID):
     try:
@@ -262,7 +267,7 @@ class DICOMParser(object):
         "ReferencedSOPInstanceUID": refInstanceUID, "ReferencedSeriesInstanceUID": seriesUID
       })
     except KeyError as exc:
-      print ("Missing key: %s " % exc)
+      self.logger.error ("Missing key: %s " % exc)
 
   def readSegments(self):
     seq = self.dcm.data_element("SegmentSequence")
@@ -375,7 +380,7 @@ class DICOMParser(object):
           try:
             value = self.dcm.data_element(attr).value
           except:
-            print("Failed to look up \""+attr+"\"")
+            self.logger.error("Failed to look up \""+attr+"\"")
         mAttr[attr] = value
 
       self.tables["SR1500_MeasurementGroups"].append(mAttr)

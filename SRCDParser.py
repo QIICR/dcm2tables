@@ -4,7 +4,7 @@ import copy
 
 
 class SRCDParser(DICOMParser):
-  
+
   def parse(self):
     modality = self.dcm.Modality
     if modality == "SR":

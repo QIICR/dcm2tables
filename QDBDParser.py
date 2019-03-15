@@ -4,7 +4,7 @@ import os, sys
 # return dictionary with the mapping of the tables to the attributes
 # ignore comments, settings, and connections
 class QDBDParser:
-  def __init__(self,fileName):
+  def __init__(self,fileName, logger=None):
     self.tables = {}
 
     with open(fileName,'r') as f:
