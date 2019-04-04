@@ -271,6 +271,8 @@ SegmentedPropertyCategoryCodeSequence_CodeMeaning
 SegmentedPropertyTypeCodeSequence_CodeValue
 SegmentedPropertyTypeCodeSequence_CodingSchemeDesignator
 SegmentedPropertyTypeCodeSequence_CodeMeaning
+TrackingID
+TrackingUID
 
 # Flattened selected content of SharedFunctionalGroupsSequence
 #  and PerFrameFunctionalGroupsSequence
