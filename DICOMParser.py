@@ -3,6 +3,7 @@ import os
 import json
 import platform
 from collections import OrderedDict
+import subprocess
 
 
 class DCMQINotFoundError(Exception):
@@ -74,10 +75,11 @@ class DICOMParser(object):
     if modality == "SR":
       tid = self.dcm.ContentTemplateSequence[0].TemplateIdentifier
       if tid == "1500":
-        from subprocess import call
         outputJSON = os.path.join(self.tempPath, "measurements.json")
         tid1500reader = self.getTID1500readerExecutable()
-        call([tid1500reader, "--inputDICOM", self.fileName, "--outputMetadata", outputJSON])
+        converterCmd = [tid1500reader, "--inputDICOM", self.fileName, "--outputMetadata", outputJSON]
+        sp = subprocess.Popen(converterCmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (stdout,stderr) = sp.communicate()
         with open(outputJSON) as jsonFile:
           measurementsJSON = json.load(jsonFile)
           self.readMeasurements(measurementsJSON)
