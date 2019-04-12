@@ -29,6 +29,7 @@ PatientAge
 PatientWeight
 BodyPartExamined
 ManufacturerModelName
+Manufacturer
 SoftwareVersions
 
 # Patient clinical data
