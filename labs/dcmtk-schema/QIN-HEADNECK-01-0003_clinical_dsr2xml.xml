@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<report type="Comprehensive SR">
+<sopclass uid="1.2.840.10008.5.1.4.1.1.88.33">ComprehensiveSRStorage</sopclass>
+<charset>ISO_IR 100</charset>
+<modality>SR</modality>
+<device>
+<manufacturer>PixelMed</manufacturer>
+<model>XSLT from clinical database extract</model>
+<serial>78658246582465</serial>
+<version>0.1</version>
+</device>
+<patient>
+<id>QIN-HEADNECK-01-0003</id>
+<name>
+<last>QIN-HEADNECK-01-0003</last>
+</name>
+<sex>M</sex>
+</patient>
+<study uid="1.3.6.1.4.1.14519.5.2.1.2744.7002.155673805644546825686716035642">
+<date>1992-05-25</date>
+<time>00:00:00</time>
+<description>Clinical Data</description>
+</study>
+<series uid="1.3.6.1.4.1.14519.5.2.1.2744.7002.229973763634203644996530070535">
+<number>1</number>
+<date>1992-05-25</date>
+<time>00:00:00</time>
+<description>Clinical Data</description>
+</series>
+<instance uid="1.3.6.1.4.1.14519.5.2.1.2744.7002.532628681424997317211249035869">
+<number>1</number>
+</instance>
+<document>
+<completion flag="COMPLETE">
+</completion>
+<verification flag="UNVERIFIED">
+</verification>
+<content>
+<date>1992-05-25</date>
+<time>00:00:00</time>
+<container flag="SEPARATE">
+<concept>
+<value>R-42BAB</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Summary Clinical Document</meaning>
+</concept>
+<code>
+<relationship>HAS CONCEPT MOD</relationship>
+<concept>
+<value>121049</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Language of Content Item and Descendants</meaning>
+</concept>
+<code>
+<relationship>HAS CONCEPT MOD</relationship>
+<concept>
+<value>121046</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Country of Language</meaning>
+</concept>
+<value>US</value>
+<scheme>
+<designator>ISO3166_1</designator>
+</scheme>
+<meaning>United States</meaning>
+</code>
+<value>eng</value>
+<scheme>
+<designator>RFC3066</designator>
+</scheme>
+<meaning>English</meaning>
+</code>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>121118</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Patient Characteristics</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>121031</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Subject Birth Date</meaning>
+</concept>
+<value>1937-05-31</value>
+</date>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>121032</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Subject Sex</meaning>
+</concept>
+<value>M</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Male</meaning>
+</code>
+<num>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>8302-2</value>
+<scheme>
+<designator>LN</designator>
+</scheme>
+<meaning>Patient Height</meaning>
+</concept>
+<value>173</value>
+<unit>
+<value>cm</value>
+<scheme>
+<designator>UCUM</designator>
+</scheme>
+<meaning>cm</meaning>
+</unit>
+</num>
+<num>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>29463-7</value>
+<scheme>
+<designator>LN</designator>
+</scheme>
+<meaning>Patient Weight</meaning>
+</concept>
+<value>75</value>
+<unit>
+<value>kg</value>
+<scheme>
+<designator>UCUM</designator>
+</scheme>
+<meaning>kg</meaning>
+</unit>
+</num>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>S-0004D</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Racial group</meaning>
+</concept>
+<value>S-0003D</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Caucasian race</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>S-00045</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Hispanic</meaning>
+</concept>
+<value>R-00339</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>No</meaning>
+</code>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>11450-4</value>
+<scheme>
+<designator>LN</designator>
+</scheme>
+<meaning>Problem List</meaning>
+</concept>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>29762-2</value>
+<scheme>
+<designator>LN</designator>
+</scheme>
+<meaning>Social History</meaning>
+</concept>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-93109</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Tobacco Smoking Behavior</meaning>
+</concept>
+<value>S-32070</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Former Smoker</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-02573</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Alcohol consumption</meaning>
+</concept>
+<value>R-40775</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>None</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-0434C</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Details of tobacco chewing</meaning>
+</concept>
+<value>F-93219</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Does not chew tobacco</meaning>
+</code>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>G-E395</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Tumor Staging</meaning>
+</concept>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>R-100D9</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Primary tumor site</meaning>
+</concept>
+<value>T-C5001</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>tonsil and adenoid</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>R-00443</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Tumor stage finding</meaning>
+</concept>
+<value>G-E410</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Clinical Stage IV A</meaning>
+</code>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-005C4</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>TNM Category</meaning>
+</concept>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>G-F150</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>T Stage</meaning>
+</concept>
+<value>G-F176</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Tumor Stage T4a</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>R-40030</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>N Stage</meaning>
+</concept>
+<value>G-F160</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Node Stage N0</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>R-40031</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>M Stage</meaning>
+</concept>
+<value>G-F170</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Metastasis Stage M0</meaning>
+</code>
+</container>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>G-03E7</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Past medical history</meaning>
+</concept>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P0-099EB</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>History of radiation therapy</meaning>
+</concept>
+<value>R-4135B</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Not performed</meaning>
+</code>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>G-0133</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>History of malignant neoplasm</meaning>
+</concept>
+<value>R-FB75F</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>No history of malignant neoplastic disease</meaning>
+</code>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P0-00002</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Diagnostic Procedure</meaning>
+</concept>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P1-03100</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Biopsy</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-05045</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date of procedure</meaning>
+</concept>
+<value>1986-03-03</value>
+</date>
+<text>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04956</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Biopsy Site</meaning>
+</concept>
+<value>R Tonsil</value>
+</text>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P1-03100</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Biopsy</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-05045</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date of procedure</meaning>
+</concept>
+<value>1986-03-17</value>
+</date>
+<text>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04956</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Biopsy Site</meaning>
+</concept>
+<value>R Tonsil</value>
+</text>
+</container>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P0-0000E</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Therapeutic Procedure</meaning>
+</concept>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P5-C0000</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Radiotherapy Procedure</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04C2B</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date treatment started</meaning>
+</concept>
+<value>1986-04-11</value>
+</date>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04C2C</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date treatment stopped</meaning>
+</concept>
+<value>1986-06-03</value>
+</date>
+<num>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>R-007B0</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Total radiation dose delivered</meaning>
+</concept>
+<value>70</value>
+<unit>
+<value>Gy</value>
+<scheme>
+<designator>UCUM</designator>
+</scheme>
+<meaning>Gy</meaning>
+</unit>
+</num>
+<num>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>300002</value>
+<scheme>
+<designator>99PMP</designator>
+</scheme>
+<meaning>Radiation dose per fraction</meaning>
+</concept>
+<value>2</value>
+<unit>
+<value>Gy</value>
+<scheme>
+<designator>UCUM</designator>
+</scheme>
+<meaning>Gy</meaning>
+</unit>
+</num>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P0-0058E</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Chemotherapy</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04C2B</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date treatment started</meaning>
+</concept>
+<value>1986-04-12</value>
+</date>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-04C2C</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Date treatment stopped</meaning>
+</concept>
+<value>1986-05-25</value>
+</date>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-618AA</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Antineoplastic agent</meaning>
+</concept>
+<value>C-15310</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Platinum</meaning>
+</code>
+</container>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>300015</value>
+<scheme>
+<designator>99PMP</designator>
+</scheme>
+<meaning>Pathology of original tumor</meaning>
+</concept>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>111468</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Pathology Results</meaning>
+</concept>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>111042</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Pathology</meaning>
+</concept>
+<code>
+<relationship>HAS PROPERTIES</relationship>
+<concept>
+<value>F-02900</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Histological grade finding</meaning>
+</concept>
+<value>G-F213</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Grade 3: poorly differentiated</meaning>
+</code>
+<code>
+<relationship>HAS PROPERTIES</relationship>
+<concept>
+<value>111388</value>
+<scheme>
+<designator>DCM</designator>
+</scheme>
+<meaning>Malignancy Type</meaning>
+</concept>
+<value>C1334274</value>
+<scheme>
+<designator>UMLS</designator>
+</scheme>
+<meaning>Invasive carcinoma</meaning>
+</code>
+<value>M-80703</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Squamous Cell Carcinoma</meaning>
+</code>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>P1-65320</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Excision of cervical lymph nodes group</meaning>
+</concept>
+</container>
+</container>
+<container flag="SEPARATE">
+<relationship>CONTAINS</relationship>
+<concept>
+<value>C0679250</value>
+<scheme>
+<designator>UMLS</designator>
+</scheme>
+<meaning>Disease Outcome</meaning>
+</concept>
+<date>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>C3694716</value>
+<scheme>
+<designator>UMLS</designator>
+</scheme>
+<meaning>Follow-up visit date</meaning>
+</concept>
+<value>1992-05-25</value>
+</date>
+<code>
+<relationship>CONTAINS</relationship>
+<concept>
+<value>F-00F54</value>
+<scheme>
+<designator>SRT</designator>
+</scheme>
+<meaning>Followup status</meaning>
+</concept>
+<value>C1518340</value>
+<scheme>
+<designator>UMLS</designator>
+</scheme>
+<meaning>No evidence of disease</meaning>
+</code>
+</container>
+</container>
+</content>
+</document>
+</report>
