@@ -1,0 +1,1866 @@
+{
+  "report": {
+    "@type": "Comprehensive SR",
+    "@__order__": 0,
+    "sopclass": {
+      "@uid": "1.2.840.10008.5.1.4.1.1.88.33",
+      "@__order__": 1,
+      "#text": "ComprehensiveSRStorage"
+    },
+    "charset": {
+      "@__order__": 2,
+      "#text": "ISO_IR 100"
+    },
+    "modality": {
+      "@__order__": 3,
+      "#text": "SR"
+    },
+    "device": {
+      "@__order__": 4,
+      "manufacturer": {
+        "@__order__": 5,
+        "#text": "PixelMed"
+      },
+      "model": {
+        "@__order__": 6,
+        "#text": "XSLT from clinical database extract"
+      },
+      "serial": {
+        "@__order__": 7,
+        "#text": "78658246582465"
+      },
+      "version": {
+        "@__order__": 8,
+        "#text": "0.1"
+      }
+    },
+    "patient": {
+      "@__order__": 9,
+      "id": {
+        "@__order__": 10,
+        "#text": "QIN-HEADNECK-01-0003"
+      },
+      "name": {
+        "@__order__": 11,
+        "last": {
+          "@__order__": 12,
+          "#text": "QIN-HEADNECK-01-0003"
+        }
+      },
+      "sex": {
+        "@__order__": 13,
+        "#text": "M"
+      }
+    },
+    "study": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.155673805644546825686716035642",
+      "@__order__": 14,
+      "date": {
+        "@__order__": 15,
+        "#text": "1992-05-25"
+      },
+      "time": {
+        "@__order__": 16,
+        "#text": "00:00:00"
+      },
+      "description": {
+        "@__order__": 17,
+        "#text": "Clinical Data"
+      }
+    },
+    "series": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.229973763634203644996530070535",
+      "@__order__": 18,
+      "number": {
+        "@__order__": 19,
+        "#text": "1"
+      },
+      "date": {
+        "@__order__": 20,
+        "#text": "1992-05-25"
+      },
+      "time": {
+        "@__order__": 21,
+        "#text": "00:00:00"
+      },
+      "description": {
+        "@__order__": 22,
+        "#text": "Clinical Data"
+      }
+    },
+    "instance": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.532628681424997317211249035869",
+      "@__order__": 23,
+      "number": {
+        "@__order__": 24,
+        "#text": "1"
+      }
+    },
+    "document": {
+      "@__order__": 25,
+      "completion": {
+        "@flag": "COMPLETE",
+        "@__order__": 26
+      },
+      "verification": {
+        "@flag": "UNVERIFIED",
+        "@__order__": 27
+      },
+      "content": {
+        "@__order__": 28,
+        "date": {
+          "@__order__": 29,
+          "#text": "1992-05-25"
+        },
+        "time": {
+          "@__order__": 30,
+          "#text": "00:00:00"
+        },
+        "container": {
+          "@flag": "SEPARATE",
+          "@__order__": 31,
+          "concept": {
+            "@__order__": 32,
+            "value": {
+              "@__order__": 33,
+              "#text": "R-42BAB"
+            },
+            "scheme": {
+              "@__order__": 34,
+              "designator": {
+                "@__order__": 35,
+                "#text": "SRT"
+              }
+            },
+            "meaning": {
+              "@__order__": 36,
+              "#text": "Summary Clinical Document"
+            }
+          },
+          "code": {
+            "@__order__": 37,
+            "relationship": {
+              "@__order__": 38,
+              "#text": "HAS CONCEPT MOD"
+            },
+            "concept": {
+              "@__order__": 39,
+              "value": {
+                "@__order__": 40,
+                "#text": "121049"
+              },
+              "scheme": {
+                "@__order__": 41,
+                "designator": {
+                  "@__order__": 42,
+                  "#text": "DCM"
+                }
+              },
+              "meaning": {
+                "@__order__": 43,
+                "#text": "Language of Content Item and Descendants"
+              }
+            },
+            "code": {
+              "@__order__": 44,
+              "relationship": {
+                "@__order__": 45,
+                "#text": "HAS CONCEPT MOD"
+              },
+              "concept": {
+                "@__order__": 46,
+                "value": {
+                  "@__order__": 47,
+                  "#text": "121046"
+                },
+                "scheme": {
+                  "@__order__": 48,
+                  "designator": {
+                    "@__order__": 49,
+                    "#text": "DCM"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 50,
+                  "#text": "Country of Language"
+                }
+              },
+              "value": {
+                "@__order__": 51,
+                "#text": "US"
+              },
+              "scheme": {
+                "@__order__": 52,
+                "designator": {
+                  "@__order__": 53,
+                  "#text": "ISO3166_1"
+                }
+              },
+              "meaning": {
+                "@__order__": 54,
+                "#text": "United States"
+              }
+            },
+            "value": {
+              "@__order__": 55,
+              "#text": "eng"
+            },
+            "scheme": {
+              "@__order__": 56,
+              "designator": {
+                "@__order__": 57,
+                "#text": "RFC3066"
+              }
+            },
+            "meaning": {
+              "@__order__": 58,
+              "#text": "English"
+            }
+          },
+          "container": [
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 59,
+              "relationship": {
+                "@__order__": 60,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 61,
+                "value": {
+                  "@__order__": 62,
+                  "#text": "121118"
+                },
+                "scheme": {
+                  "@__order__": 63,
+                  "designator": {
+                    "@__order__": 64,
+                    "#text": "DCM"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 65,
+                  "#text": "Patient Characteristics"
+                }
+              },
+              "date": {
+                "@__order__": 66,
+                "relationship": {
+                  "@__order__": 67,
+                  "#text": "CONTAINS"
+                },
+                "concept": {
+                  "@__order__": 68,
+                  "value": {
+                    "@__order__": 69,
+                    "#text": "121031"
+                  },
+                  "scheme": {
+                    "@__order__": 70,
+                    "designator": {
+                      "@__order__": 71,
+                      "#text": "DCM"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 72,
+                    "#text": "Subject Birth Date"
+                  }
+                },
+                "value": {
+                  "@__order__": 73,
+                  "#text": "1937-05-31"
+                }
+              },
+              "code": [
+                {
+                  "@__order__": 74,
+                  "relationship": {
+                    "@__order__": 75,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 76,
+                    "value": {
+                      "@__order__": 77,
+                      "#text": "121032"
+                    },
+                    "scheme": {
+                      "@__order__": 78,
+                      "designator": {
+                        "@__order__": 79,
+                        "#text": "DCM"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 80,
+                      "#text": "Subject Sex"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 81,
+                    "#text": "M"
+                  },
+                  "scheme": {
+                    "@__order__": 82,
+                    "designator": {
+                      "@__order__": 83,
+                      "#text": "DCM"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 84,
+                    "#text": "Male"
+                  }
+                },
+                {
+                  "@__order__": 111,
+                  "relationship": {
+                    "@__order__": 112,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 113,
+                    "value": {
+                      "@__order__": 114,
+                      "#text": "S-0004D"
+                    },
+                    "scheme": {
+                      "@__order__": 115,
+                      "designator": {
+                        "@__order__": 116,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 117,
+                      "#text": "Racial group"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 118,
+                    "#text": "S-0003D"
+                  },
+                  "scheme": {
+                    "@__order__": 119,
+                    "designator": {
+                      "@__order__": 120,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 121,
+                    "#text": "Caucasian race"
+                  }
+                },
+                {
+                  "@__order__": 122,
+                  "relationship": {
+                    "@__order__": 123,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 124,
+                    "value": {
+                      "@__order__": 125,
+                      "#text": "S-00045"
+                    },
+                    "scheme": {
+                      "@__order__": 126,
+                      "designator": {
+                        "@__order__": 127,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 128,
+                      "#text": "Hispanic"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 129,
+                    "#text": "R-00339"
+                  },
+                  "scheme": {
+                    "@__order__": 130,
+                    "designator": {
+                      "@__order__": 131,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 132,
+                    "#text": "No"
+                  }
+                }
+              ],
+              "num": [
+                {
+                  "@__order__": 85,
+                  "relationship": {
+                    "@__order__": 86,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 87,
+                    "value": {
+                      "@__order__": 88,
+                      "#text": "8302-2"
+                    },
+                    "scheme": {
+                      "@__order__": 89,
+                      "designator": {
+                        "@__order__": 90,
+                        "#text": "LN"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 91,
+                      "#text": "Patient Height"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 92,
+                    "#text": "173"
+                  },
+                  "unit": {
+                    "@__order__": 93,
+                    "value": {
+                      "@__order__": 94,
+                      "#text": "cm"
+                    },
+                    "scheme": {
+                      "@__order__": 95,
+                      "designator": {
+                        "@__order__": 96,
+                        "#text": "UCUM"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 97,
+                      "#text": "cm"
+                    }
+                  }
+                },
+                {
+                  "@__order__": 98,
+                  "relationship": {
+                    "@__order__": 99,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 100,
+                    "value": {
+                      "@__order__": 101,
+                      "#text": "29463-7"
+                    },
+                    "scheme": {
+                      "@__order__": 102,
+                      "designator": {
+                        "@__order__": 103,
+                        "#text": "LN"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 104,
+                      "#text": "Patient Weight"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 105,
+                    "#text": "75"
+                  },
+                  "unit": {
+                    "@__order__": 106,
+                    "value": {
+                      "@__order__": 107,
+                      "#text": "kg"
+                    },
+                    "scheme": {
+                      "@__order__": 108,
+                      "designator": {
+                        "@__order__": 109,
+                        "#text": "UCUM"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 110,
+                      "#text": "kg"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 133,
+              "relationship": {
+                "@__order__": 134,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 135,
+                "value": {
+                  "@__order__": 136,
+                  "#text": "11450-4"
+                },
+                "scheme": {
+                  "@__order__": 137,
+                  "designator": {
+                    "@__order__": 138,
+                    "#text": "LN"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 139,
+                  "#text": "Problem List"
+                }
+              }
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 140,
+              "relationship": {
+                "@__order__": 141,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 142,
+                "value": {
+                  "@__order__": 143,
+                  "#text": "29762-2"
+                },
+                "scheme": {
+                  "@__order__": 144,
+                  "designator": {
+                    "@__order__": 145,
+                    "#text": "LN"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 146,
+                  "#text": "Social History"
+                }
+              },
+              "code": [
+                {
+                  "@__order__": 147,
+                  "relationship": {
+                    "@__order__": 148,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 149,
+                    "value": {
+                      "@__order__": 150,
+                      "#text": "F-93109"
+                    },
+                    "scheme": {
+                      "@__order__": 151,
+                      "designator": {
+                        "@__order__": 152,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 153,
+                      "#text": "Tobacco Smoking Behavior"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 154,
+                    "#text": "S-32070"
+                  },
+                  "scheme": {
+                    "@__order__": 155,
+                    "designator": {
+                      "@__order__": 156,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 157,
+                    "#text": "Former Smoker"
+                  }
+                },
+                {
+                  "@__order__": 158,
+                  "relationship": {
+                    "@__order__": 159,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 160,
+                    "value": {
+                      "@__order__": 161,
+                      "#text": "F-02573"
+                    },
+                    "scheme": {
+                      "@__order__": 162,
+                      "designator": {
+                        "@__order__": 163,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 164,
+                      "#text": "Alcohol consumption"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 165,
+                    "#text": "R-40775"
+                  },
+                  "scheme": {
+                    "@__order__": 166,
+                    "designator": {
+                      "@__order__": 167,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 168,
+                    "#text": "None"
+                  }
+                },
+                {
+                  "@__order__": 169,
+                  "relationship": {
+                    "@__order__": 170,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 171,
+                    "value": {
+                      "@__order__": 172,
+                      "#text": "F-0434C"
+                    },
+                    "scheme": {
+                      "@__order__": 173,
+                      "designator": {
+                        "@__order__": 174,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 175,
+                      "#text": "Details of tobacco chewing"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 176,
+                    "#text": "F-93219"
+                  },
+                  "scheme": {
+                    "@__order__": 177,
+                    "designator": {
+                      "@__order__": 178,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 179,
+                    "#text": "Does not chew tobacco"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 180,
+              "relationship": {
+                "@__order__": 181,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 182,
+                "value": {
+                  "@__order__": 183,
+                  "#text": "G-E395"
+                },
+                "scheme": {
+                  "@__order__": 184,
+                  "designator": {
+                    "@__order__": 185,
+                    "#text": "SRT"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 186,
+                  "#text": "Tumor Staging"
+                }
+              },
+              "code": [
+                {
+                  "@__order__": 187,
+                  "relationship": {
+                    "@__order__": 188,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 189,
+                    "value": {
+                      "@__order__": 190,
+                      "#text": "R-100D9"
+                    },
+                    "scheme": {
+                      "@__order__": 191,
+                      "designator": {
+                        "@__order__": 192,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 193,
+                      "#text": "Primary tumor site"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 194,
+                    "#text": "T-C5001"
+                  },
+                  "scheme": {
+                    "@__order__": 195,
+                    "designator": {
+                      "@__order__": 196,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 197,
+                    "#text": "tonsil and adenoid"
+                  }
+                },
+                {
+                  "@__order__": 198,
+                  "relationship": {
+                    "@__order__": 199,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 200,
+                    "value": {
+                      "@__order__": 201,
+                      "#text": "R-00443"
+                    },
+                    "scheme": {
+                      "@__order__": 202,
+                      "designator": {
+                        "@__order__": 203,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 204,
+                      "#text": "Tumor stage finding"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 205,
+                    "#text": "G-E410"
+                  },
+                  "scheme": {
+                    "@__order__": 206,
+                    "designator": {
+                      "@__order__": 207,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 208,
+                    "#text": "Clinical Stage IV A"
+                  }
+                }
+              ],
+              "container": {
+                "@flag": "SEPARATE",
+                "@__order__": 209,
+                "relationship": {
+                  "@__order__": 210,
+                  "#text": "CONTAINS"
+                },
+                "concept": {
+                  "@__order__": 211,
+                  "value": {
+                    "@__order__": 212,
+                    "#text": "F-005C4"
+                  },
+                  "scheme": {
+                    "@__order__": 213,
+                    "designator": {
+                      "@__order__": 214,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 215,
+                    "#text": "TNM Category"
+                  }
+                },
+                "code": [
+                  {
+                    "@__order__": 216,
+                    "relationship": {
+                      "@__order__": 217,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 218,
+                      "value": {
+                        "@__order__": 219,
+                        "#text": "G-F150"
+                      },
+                      "scheme": {
+                        "@__order__": 220,
+                        "designator": {
+                          "@__order__": 221,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 222,
+                        "#text": "T Stage"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 223,
+                      "#text": "G-F176"
+                    },
+                    "scheme": {
+                      "@__order__": 224,
+                      "designator": {
+                        "@__order__": 225,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 226,
+                      "#text": "Tumor Stage T4a"
+                    }
+                  },
+                  {
+                    "@__order__": 227,
+                    "relationship": {
+                      "@__order__": 228,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 229,
+                      "value": {
+                        "@__order__": 230,
+                        "#text": "R-40030"
+                      },
+                      "scheme": {
+                        "@__order__": 231,
+                        "designator": {
+                          "@__order__": 232,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 233,
+                        "#text": "N Stage"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 234,
+                      "#text": "G-F160"
+                    },
+                    "scheme": {
+                      "@__order__": 235,
+                      "designator": {
+                        "@__order__": 236,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 237,
+                      "#text": "Node Stage N0"
+                    }
+                  },
+                  {
+                    "@__order__": 238,
+                    "relationship": {
+                      "@__order__": 239,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 240,
+                      "value": {
+                        "@__order__": 241,
+                        "#text": "R-40031"
+                      },
+                      "scheme": {
+                        "@__order__": 242,
+                        "designator": {
+                          "@__order__": 243,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 244,
+                        "#text": "M Stage"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 245,
+                      "#text": "G-F170"
+                    },
+                    "scheme": {
+                      "@__order__": 246,
+                      "designator": {
+                        "@__order__": 247,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 248,
+                      "#text": "Metastasis Stage M0"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 249,
+              "relationship": {
+                "@__order__": 250,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 251,
+                "value": {
+                  "@__order__": 252,
+                  "#text": "G-03E7"
+                },
+                "scheme": {
+                  "@__order__": 253,
+                  "designator": {
+                    "@__order__": 254,
+                    "#text": "SRT"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 255,
+                  "#text": "Past medical history"
+                }
+              },
+              "code": [
+                {
+                  "@__order__": 256,
+                  "relationship": {
+                    "@__order__": 257,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 258,
+                    "value": {
+                      "@__order__": 259,
+                      "#text": "P0-099EB"
+                    },
+                    "scheme": {
+                      "@__order__": 260,
+                      "designator": {
+                        "@__order__": 261,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 262,
+                      "#text": "History of radiation therapy"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 263,
+                    "#text": "R-4135B"
+                  },
+                  "scheme": {
+                    "@__order__": 264,
+                    "designator": {
+                      "@__order__": 265,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 266,
+                    "#text": "Not performed"
+                  }
+                },
+                {
+                  "@__order__": 267,
+                  "relationship": {
+                    "@__order__": 268,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 269,
+                    "value": {
+                      "@__order__": 270,
+                      "#text": "G-0133"
+                    },
+                    "scheme": {
+                      "@__order__": 271,
+                      "designator": {
+                        "@__order__": 272,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 273,
+                      "#text": "History of malignant neoplasm"
+                    }
+                  },
+                  "value": {
+                    "@__order__": 274,
+                    "#text": "R-FB75F"
+                  },
+                  "scheme": {
+                    "@__order__": 275,
+                    "designator": {
+                      "@__order__": 276,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 277,
+                    "#text": "No history of malignant neoplastic disease"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 278,
+              "relationship": {
+                "@__order__": 279,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 280,
+                "value": {
+                  "@__order__": 281,
+                  "#text": "P0-00002"
+                },
+                "scheme": {
+                  "@__order__": 282,
+                  "designator": {
+                    "@__order__": 283,
+                    "#text": "SRT"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 284,
+                  "#text": "Diagnostic Procedure"
+                }
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 285,
+                  "relationship": {
+                    "@__order__": 286,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 287,
+                    "value": {
+                      "@__order__": 288,
+                      "#text": "P1-03100"
+                    },
+                    "scheme": {
+                      "@__order__": 289,
+                      "designator": {
+                        "@__order__": 290,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 291,
+                      "#text": "Biopsy"
+                    }
+                  },
+                  "date": {
+                    "@__order__": 292,
+                    "relationship": {
+                      "@__order__": 293,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 294,
+                      "value": {
+                        "@__order__": 295,
+                        "#text": "F-05045"
+                      },
+                      "scheme": {
+                        "@__order__": 296,
+                        "designator": {
+                          "@__order__": 297,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 298,
+                        "#text": "Date of procedure"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 299,
+                      "#text": "1986-03-03"
+                    }
+                  },
+                  "text": {
+                    "@__order__": 300,
+                    "relationship": {
+                      "@__order__": 301,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 302,
+                      "value": {
+                        "@__order__": 303,
+                        "#text": "F-04956"
+                      },
+                      "scheme": {
+                        "@__order__": 304,
+                        "designator": {
+                          "@__order__": 305,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 306,
+                        "#text": "Biopsy Site"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 307,
+                      "#text": "R Tonsil"
+                    }
+                  }
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 308,
+                  "relationship": {
+                    "@__order__": 309,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 310,
+                    "value": {
+                      "@__order__": 311,
+                      "#text": "P1-03100"
+                    },
+                    "scheme": {
+                      "@__order__": 312,
+                      "designator": {
+                        "@__order__": 313,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 314,
+                      "#text": "Biopsy"
+                    }
+                  },
+                  "date": {
+                    "@__order__": 315,
+                    "relationship": {
+                      "@__order__": 316,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 317,
+                      "value": {
+                        "@__order__": 318,
+                        "#text": "F-05045"
+                      },
+                      "scheme": {
+                        "@__order__": 319,
+                        "designator": {
+                          "@__order__": 320,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 321,
+                        "#text": "Date of procedure"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 322,
+                      "#text": "1986-03-17"
+                    }
+                  },
+                  "text": {
+                    "@__order__": 323,
+                    "relationship": {
+                      "@__order__": 324,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 325,
+                      "value": {
+                        "@__order__": 326,
+                        "#text": "F-04956"
+                      },
+                      "scheme": {
+                        "@__order__": 327,
+                        "designator": {
+                          "@__order__": 328,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 329,
+                        "#text": "Biopsy Site"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 330,
+                      "#text": "R Tonsil"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 331,
+              "relationship": {
+                "@__order__": 332,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 333,
+                "value": {
+                  "@__order__": 334,
+                  "#text": "P0-0000E"
+                },
+                "scheme": {
+                  "@__order__": 335,
+                  "designator": {
+                    "@__order__": 336,
+                    "#text": "SRT"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 337,
+                  "#text": "Therapeutic Procedure"
+                }
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 338,
+                  "relationship": {
+                    "@__order__": 339,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 340,
+                    "value": {
+                      "@__order__": 341,
+                      "#text": "P5-C0000"
+                    },
+                    "scheme": {
+                      "@__order__": 342,
+                      "designator": {
+                        "@__order__": 343,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 344,
+                      "#text": "Radiotherapy Procedure"
+                    }
+                  },
+                  "date": [
+                    {
+                      "@__order__": 345,
+                      "relationship": {
+                        "@__order__": 346,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 347,
+                        "value": {
+                          "@__order__": 348,
+                          "#text": "F-04C2B"
+                        },
+                        "scheme": {
+                          "@__order__": 349,
+                          "designator": {
+                            "@__order__": 350,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 351,
+                          "#text": "Date treatment started"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 352,
+                        "#text": "1986-04-11"
+                      }
+                    },
+                    {
+                      "@__order__": 353,
+                      "relationship": {
+                        "@__order__": 354,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 355,
+                        "value": {
+                          "@__order__": 356,
+                          "#text": "F-04C2C"
+                        },
+                        "scheme": {
+                          "@__order__": 357,
+                          "designator": {
+                            "@__order__": 358,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 359,
+                          "#text": "Date treatment stopped"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 360,
+                        "#text": "1986-06-03"
+                      }
+                    }
+                  ],
+                  "num": [
+                    {
+                      "@__order__": 361,
+                      "relationship": {
+                        "@__order__": 362,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 363,
+                        "value": {
+                          "@__order__": 364,
+                          "#text": "R-007B0"
+                        },
+                        "scheme": {
+                          "@__order__": 365,
+                          "designator": {
+                            "@__order__": 366,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 367,
+                          "#text": "Total radiation dose delivered"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 368,
+                        "#text": "70"
+                      },
+                      "unit": {
+                        "@__order__": 369,
+                        "value": {
+                          "@__order__": 370,
+                          "#text": "Gy"
+                        },
+                        "scheme": {
+                          "@__order__": 371,
+                          "designator": {
+                            "@__order__": 372,
+                            "#text": "UCUM"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 373,
+                          "#text": "Gy"
+                        }
+                      }
+                    },
+                    {
+                      "@__order__": 374,
+                      "relationship": {
+                        "@__order__": 375,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 376,
+                        "value": {
+                          "@__order__": 377,
+                          "#text": "300002"
+                        },
+                        "scheme": {
+                          "@__order__": 378,
+                          "designator": {
+                            "@__order__": 379,
+                            "#text": "99PMP"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 380,
+                          "#text": "Radiation dose per fraction"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 381,
+                        "#text": "2"
+                      },
+                      "unit": {
+                        "@__order__": 382,
+                        "value": {
+                          "@__order__": 383,
+                          "#text": "Gy"
+                        },
+                        "scheme": {
+                          "@__order__": 384,
+                          "designator": {
+                            "@__order__": 385,
+                            "#text": "UCUM"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 386,
+                          "#text": "Gy"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 387,
+                  "relationship": {
+                    "@__order__": 388,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 389,
+                    "value": {
+                      "@__order__": 390,
+                      "#text": "P0-0058E"
+                    },
+                    "scheme": {
+                      "@__order__": 391,
+                      "designator": {
+                        "@__order__": 392,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 393,
+                      "#text": "Chemotherapy"
+                    }
+                  },
+                  "date": [
+                    {
+                      "@__order__": 394,
+                      "relationship": {
+                        "@__order__": 395,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 396,
+                        "value": {
+                          "@__order__": 397,
+                          "#text": "F-04C2B"
+                        },
+                        "scheme": {
+                          "@__order__": 398,
+                          "designator": {
+                            "@__order__": 399,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 400,
+                          "#text": "Date treatment started"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 401,
+                        "#text": "1986-04-12"
+                      }
+                    },
+                    {
+                      "@__order__": 402,
+                      "relationship": {
+                        "@__order__": 403,
+                        "#text": "CONTAINS"
+                      },
+                      "concept": {
+                        "@__order__": 404,
+                        "value": {
+                          "@__order__": 405,
+                          "#text": "F-04C2C"
+                        },
+                        "scheme": {
+                          "@__order__": 406,
+                          "designator": {
+                            "@__order__": 407,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 408,
+                          "#text": "Date treatment stopped"
+                        }
+                      },
+                      "value": {
+                        "@__order__": 409,
+                        "#text": "1986-05-25"
+                      }
+                    }
+                  ],
+                  "code": {
+                    "@__order__": 410,
+                    "relationship": {
+                      "@__order__": 411,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 412,
+                      "value": {
+                        "@__order__": 413,
+                        "#text": "F-618AA"
+                      },
+                      "scheme": {
+                        "@__order__": 414,
+                        "designator": {
+                          "@__order__": 415,
+                          "#text": "SRT"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 416,
+                        "#text": "Antineoplastic agent"
+                      }
+                    },
+                    "value": {
+                      "@__order__": 417,
+                      "#text": "C-15310"
+                    },
+                    "scheme": {
+                      "@__order__": 418,
+                      "designator": {
+                        "@__order__": 419,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 420,
+                      "#text": "Platinum"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 421,
+              "relationship": {
+                "@__order__": 422,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 423,
+                "value": {
+                  "@__order__": 424,
+                  "#text": "300015"
+                },
+                "scheme": {
+                  "@__order__": 425,
+                  "designator": {
+                    "@__order__": 426,
+                    "#text": "99PMP"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 427,
+                  "#text": "Pathology of original tumor"
+                }
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 428,
+                  "relationship": {
+                    "@__order__": 429,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 430,
+                    "value": {
+                      "@__order__": 431,
+                      "#text": "111468"
+                    },
+                    "scheme": {
+                      "@__order__": 432,
+                      "designator": {
+                        "@__order__": 433,
+                        "#text": "DCM"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 434,
+                      "#text": "Pathology Results"
+                    }
+                  },
+                  "code": {
+                    "@__order__": 435,
+                    "relationship": {
+                      "@__order__": 436,
+                      "#text": "CONTAINS"
+                    },
+                    "concept": {
+                      "@__order__": 437,
+                      "value": {
+                        "@__order__": 438,
+                        "#text": "111042"
+                      },
+                      "scheme": {
+                        "@__order__": 439,
+                        "designator": {
+                          "@__order__": 440,
+                          "#text": "DCM"
+                        }
+                      },
+                      "meaning": {
+                        "@__order__": 441,
+                        "#text": "Pathology"
+                      }
+                    },
+                    "code": [
+                      {
+                        "@__order__": 442,
+                        "relationship": {
+                          "@__order__": 443,
+                          "#text": "HAS PROPERTIES"
+                        },
+                        "concept": {
+                          "@__order__": 444,
+                          "value": {
+                            "@__order__": 445,
+                            "#text": "F-02900"
+                          },
+                          "scheme": {
+                            "@__order__": 446,
+                            "designator": {
+                              "@__order__": 447,
+                              "#text": "SRT"
+                            }
+                          },
+                          "meaning": {
+                            "@__order__": 448,
+                            "#text": "Histological grade finding"
+                          }
+                        },
+                        "value": {
+                          "@__order__": 449,
+                          "#text": "G-F213"
+                        },
+                        "scheme": {
+                          "@__order__": 450,
+                          "designator": {
+                            "@__order__": 451,
+                            "#text": "SRT"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 452,
+                          "#text": "Grade 3: poorly differentiated"
+                        }
+                      },
+                      {
+                        "@__order__": 453,
+                        "relationship": {
+                          "@__order__": 454,
+                          "#text": "HAS PROPERTIES"
+                        },
+                        "concept": {
+                          "@__order__": 455,
+                          "value": {
+                            "@__order__": 456,
+                            "#text": "111388"
+                          },
+                          "scheme": {
+                            "@__order__": 457,
+                            "designator": {
+                              "@__order__": 458,
+                              "#text": "DCM"
+                            }
+                          },
+                          "meaning": {
+                            "@__order__": 459,
+                            "#text": "Malignancy Type"
+                          }
+                        },
+                        "value": {
+                          "@__order__": 460,
+                          "#text": "C1334274"
+                        },
+                        "scheme": {
+                          "@__order__": 461,
+                          "designator": {
+                            "@__order__": 462,
+                            "#text": "UMLS"
+                          }
+                        },
+                        "meaning": {
+                          "@__order__": 463,
+                          "#text": "Invasive carcinoma"
+                        }
+                      }
+                    ],
+                    "value": {
+                      "@__order__": 464,
+                      "#text": "M-80703"
+                    },
+                    "scheme": {
+                      "@__order__": 465,
+                      "designator": {
+                        "@__order__": 466,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 467,
+                      "#text": "Squamous Cell Carcinoma"
+                    }
+                  }
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "@__order__": 468,
+                  "relationship": {
+                    "@__order__": 469,
+                    "#text": "CONTAINS"
+                  },
+                  "concept": {
+                    "@__order__": 470,
+                    "value": {
+                      "@__order__": 471,
+                      "#text": "P1-65320"
+                    },
+                    "scheme": {
+                      "@__order__": 472,
+                      "designator": {
+                        "@__order__": 473,
+                        "#text": "SRT"
+                      }
+                    },
+                    "meaning": {
+                      "@__order__": 474,
+                      "#text": "Excision of cervical lymph nodes group"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "@__order__": 475,
+              "relationship": {
+                "@__order__": 476,
+                "#text": "CONTAINS"
+              },
+              "concept": {
+                "@__order__": 477,
+                "value": {
+                  "@__order__": 478,
+                  "#text": "C0679250"
+                },
+                "scheme": {
+                  "@__order__": 479,
+                  "designator": {
+                    "@__order__": 480,
+                    "#text": "UMLS"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 481,
+                  "#text": "Disease Outcome"
+                }
+              },
+              "date": {
+                "@__order__": 482,
+                "relationship": {
+                  "@__order__": 483,
+                  "#text": "CONTAINS"
+                },
+                "concept": {
+                  "@__order__": 484,
+                  "value": {
+                    "@__order__": 485,
+                    "#text": "C3694716"
+                  },
+                  "scheme": {
+                    "@__order__": 486,
+                    "designator": {
+                      "@__order__": 487,
+                      "#text": "UMLS"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 488,
+                    "#text": "Follow-up visit date"
+                  }
+                },
+                "value": {
+                  "@__order__": 489,
+                  "#text": "1992-05-25"
+                }
+              },
+              "code": {
+                "@__order__": 490,
+                "relationship": {
+                  "@__order__": 491,
+                  "#text": "CONTAINS"
+                },
+                "concept": {
+                  "@__order__": 492,
+                  "value": {
+                    "@__order__": 493,
+                    "#text": "F-00F54"
+                  },
+                  "scheme": {
+                    "@__order__": 494,
+                    "designator": {
+                      "@__order__": 495,
+                      "#text": "SRT"
+                    }
+                  },
+                  "meaning": {
+                    "@__order__": 496,
+                    "#text": "Followup status"
+                  }
+                },
+                "value": {
+                  "@__order__": 497,
+                  "#text": "C1518340"
+                },
+                "scheme": {
+                  "@__order__": 498,
+                  "designator": {
+                    "@__order__": 499,
+                    "#text": "UMLS"
+                  }
+                },
+                "meaning": {
+                  "@__order__": 500,
+                  "#text": "No evidence of disease"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

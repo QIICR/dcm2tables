@@ -1,0 +1,749 @@
+{
+  "report": {
+    "@type": "Comprehensive SR",
+    "sopclass": {
+      "@uid": "1.2.840.10008.5.1.4.1.1.88.33",
+      "#text": "ComprehensiveSRStorage"
+    },
+    "charset": "ISO_IR 100",
+    "modality": "SR",
+    "device": {
+      "manufacturer": "PixelMed",
+      "model": "XSLT from clinical database extract",
+      "serial": "78658246582465",
+      "version": "0.1"
+    },
+    "patient": {
+      "id": "QIN-HEADNECK-01-0003",
+      "name": {
+        "last": "QIN-HEADNECK-01-0003"
+      },
+      "sex": "M"
+    },
+    "study": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.155673805644546825686716035642",
+      "date": "1992-05-25",
+      "time": "00:00:00",
+      "description": "Clinical Data"
+    },
+    "series": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.229973763634203644996530070535",
+      "number": "1",
+      "date": "1992-05-25",
+      "time": "00:00:00",
+      "description": "Clinical Data"
+    },
+    "instance": {
+      "@uid": "1.3.6.1.4.1.14519.5.2.1.2744.7002.532628681424997317211249035869",
+      "number": "1"
+    },
+    "document": {
+      "completion": {
+        "@flag": "COMPLETE"
+      },
+      "verification": {
+        "@flag": "UNVERIFIED"
+      },
+      "content": {
+        "date": "1992-05-25",
+        "time": "00:00:00",
+        "container": {
+          "@flag": "SEPARATE",
+          "concept": {
+            "value": "R-42BAB",
+            "scheme": {
+              "designator": "SRT"
+            },
+            "meaning": "Summary Clinical Document"
+          },
+          "code": {
+            "relationship": "HAS CONCEPT MOD",
+            "concept": {
+              "value": "121049",
+              "scheme": {
+                "designator": "DCM"
+              },
+              "meaning": "Language of Content Item and Descendants"
+            },
+            "code": {
+              "relationship": "HAS CONCEPT MOD",
+              "concept": {
+                "value": "121046",
+                "scheme": {
+                  "designator": "DCM"
+                },
+                "meaning": "Country of Language"
+              },
+              "value": "US",
+              "scheme": {
+                "designator": "ISO3166_1"
+              },
+              "meaning": "United States"
+            },
+            "value": "eng",
+            "scheme": {
+              "designator": "RFC3066"
+            },
+            "meaning": "English"
+          },
+          "container": [
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "121118",
+                "scheme": {
+                  "designator": "DCM"
+                },
+                "meaning": "Patient Characteristics"
+              },
+              "date": {
+                "relationship": "CONTAINS",
+                "concept": {
+                  "value": "121031",
+                  "scheme": {
+                    "designator": "DCM"
+                  },
+                  "meaning": "Subject Birth Date"
+                },
+                "value": "1937-05-31"
+              },
+              "code": [
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "121032",
+                    "scheme": {
+                      "designator": "DCM"
+                    },
+                    "meaning": "Subject Sex"
+                  },
+                  "value": "M",
+                  "scheme": {
+                    "designator": "DCM"
+                  },
+                  "meaning": "Male"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "S-0004D",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Racial group"
+                  },
+                  "value": "S-0003D",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Caucasian race"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "S-00045",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Hispanic"
+                  },
+                  "value": "R-00339",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "No"
+                }
+              ],
+              "num": [
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "8302-2",
+                    "scheme": {
+                      "designator": "LN"
+                    },
+                    "meaning": "Patient Height"
+                  },
+                  "value": "173",
+                  "unit": {
+                    "value": "cm",
+                    "scheme": {
+                      "designator": "UCUM"
+                    },
+                    "meaning": "cm"
+                  }
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "29463-7",
+                    "scheme": {
+                      "designator": "LN"
+                    },
+                    "meaning": "Patient Weight"
+                  },
+                  "value": "75",
+                  "unit": {
+                    "value": "kg",
+                    "scheme": {
+                      "designator": "UCUM"
+                    },
+                    "meaning": "kg"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "11450-4",
+                "scheme": {
+                  "designator": "LN"
+                },
+                "meaning": "Problem List"
+              }
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "29762-2",
+                "scheme": {
+                  "designator": "LN"
+                },
+                "meaning": "Social History"
+              },
+              "code": [
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "F-93109",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Tobacco Smoking Behavior"
+                  },
+                  "value": "S-32070",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Former Smoker"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "F-02573",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Alcohol consumption"
+                  },
+                  "value": "R-40775",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "None"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "F-0434C",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Details of tobacco chewing"
+                  },
+                  "value": "F-93219",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Does not chew tobacco"
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "G-E395",
+                "scheme": {
+                  "designator": "SRT"
+                },
+                "meaning": "Tumor Staging"
+              },
+              "code": [
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "R-100D9",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Primary tumor site"
+                  },
+                  "value": "T-C5001",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "tonsil and adenoid"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "R-00443",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Tumor stage finding"
+                  },
+                  "value": "G-E410",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Clinical Stage IV A"
+                }
+              ],
+              "container": {
+                "@flag": "SEPARATE",
+                "relationship": "CONTAINS",
+                "concept": {
+                  "value": "F-005C4",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "TNM Category"
+                },
+                "code": [
+                  {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "G-F150",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "T Stage"
+                    },
+                    "value": "G-F176",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Tumor Stage T4a"
+                  },
+                  {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "R-40030",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "N Stage"
+                    },
+                    "value": "G-F160",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Node Stage N0"
+                  },
+                  {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "R-40031",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "M Stage"
+                    },
+                    "value": "G-F170",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Metastasis Stage M0"
+                  }
+                ]
+              }
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "G-03E7",
+                "scheme": {
+                  "designator": "SRT"
+                },
+                "meaning": "Past medical history"
+              },
+              "code": [
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P0-099EB",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "History of radiation therapy"
+                  },
+                  "value": "R-4135B",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Not performed"
+                },
+                {
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "G-0133",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "History of malignant neoplasm"
+                  },
+                  "value": "R-FB75F",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "No history of malignant neoplastic disease"
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "P0-00002",
+                "scheme": {
+                  "designator": "SRT"
+                },
+                "meaning": "Diagnostic Procedure"
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P1-03100",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Biopsy"
+                  },
+                  "date": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "F-05045",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "Date of procedure"
+                    },
+                    "value": "1986-03-03"
+                  },
+                  "text": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "F-04956",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "Biopsy Site"
+                    },
+                    "value": "R Tonsil"
+                  }
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P1-03100",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Biopsy"
+                  },
+                  "date": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "F-05045",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "Date of procedure"
+                    },
+                    "value": "1986-03-17"
+                  },
+                  "text": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "F-04956",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "Biopsy Site"
+                    },
+                    "value": "R Tonsil"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "P0-0000E",
+                "scheme": {
+                  "designator": "SRT"
+                },
+                "meaning": "Therapeutic Procedure"
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P5-C0000",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Radiotherapy Procedure"
+                  },
+                  "date": [
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "F-04C2B",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Date treatment started"
+                      },
+                      "value": "1986-04-11"
+                    },
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "F-04C2C",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Date treatment stopped"
+                      },
+                      "value": "1986-06-03"
+                    }
+                  ],
+                  "num": [
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "R-007B0",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Total radiation dose delivered"
+                      },
+                      "value": "70",
+                      "unit": {
+                        "value": "Gy",
+                        "scheme": {
+                          "designator": "UCUM"
+                        },
+                        "meaning": "Gy"
+                      }
+                    },
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "300002",
+                        "scheme": {
+                          "designator": "99PMP"
+                        },
+                        "meaning": "Radiation dose per fraction"
+                      },
+                      "value": "2",
+                      "unit": {
+                        "value": "Gy",
+                        "scheme": {
+                          "designator": "UCUM"
+                        },
+                        "meaning": "Gy"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P0-0058E",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Chemotherapy"
+                  },
+                  "date": [
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "F-04C2B",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Date treatment started"
+                      },
+                      "value": "1986-04-12"
+                    },
+                    {
+                      "relationship": "CONTAINS",
+                      "concept": {
+                        "value": "F-04C2C",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Date treatment stopped"
+                      },
+                      "value": "1986-05-25"
+                    }
+                  ],
+                  "code": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "F-618AA",
+                      "scheme": {
+                        "designator": "SRT"
+                      },
+                      "meaning": "Antineoplastic agent"
+                    },
+                    "value": "C-15310",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Platinum"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "300015",
+                "scheme": {
+                  "designator": "99PMP"
+                },
+                "meaning": "Pathology of original tumor"
+              },
+              "container": [
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "111468",
+                    "scheme": {
+                      "designator": "DCM"
+                    },
+                    "meaning": "Pathology Results"
+                  },
+                  "code": {
+                    "relationship": "CONTAINS",
+                    "concept": {
+                      "value": "111042",
+                      "scheme": {
+                        "designator": "DCM"
+                      },
+                      "meaning": "Pathology"
+                    },
+                    "code": [
+                      {
+                        "relationship": "HAS PROPERTIES",
+                        "concept": {
+                          "value": "F-02900",
+                          "scheme": {
+                            "designator": "SRT"
+                          },
+                          "meaning": "Histological grade finding"
+                        },
+                        "value": "G-F213",
+                        "scheme": {
+                          "designator": "SRT"
+                        },
+                        "meaning": "Grade 3: poorly differentiated"
+                      },
+                      {
+                        "relationship": "HAS PROPERTIES",
+                        "concept": {
+                          "value": "111388",
+                          "scheme": {
+                            "designator": "DCM"
+                          },
+                          "meaning": "Malignancy Type"
+                        },
+                        "value": "C1334274",
+                        "scheme": {
+                          "designator": "UMLS"
+                        },
+                        "meaning": "Invasive carcinoma"
+                      }
+                    ],
+                    "value": "M-80703",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Squamous Cell Carcinoma"
+                  }
+                },
+                {
+                  "@flag": "SEPARATE",
+                  "relationship": "CONTAINS",
+                  "concept": {
+                    "value": "P1-65320",
+                    "scheme": {
+                      "designator": "SRT"
+                    },
+                    "meaning": "Excision of cervical lymph nodes group"
+                  }
+                }
+              ]
+            },
+            {
+              "@flag": "SEPARATE",
+              "relationship": "CONTAINS",
+              "concept": {
+                "value": "C0679250",
+                "scheme": {
+                  "designator": "UMLS"
+                },
+                "meaning": "Disease Outcome"
+              },
+              "date": {
+                "relationship": "CONTAINS",
+                "concept": {
+                  "value": "C3694716",
+                  "scheme": {
+                    "designator": "UMLS"
+                  },
+                  "meaning": "Follow-up visit date"
+                },
+                "value": "1992-05-25"
+              },
+              "code": {
+                "relationship": "CONTAINS",
+                "concept": {
+                  "value": "F-00F54",
+                  "scheme": {
+                    "designator": "SRT"
+                  },
+                  "meaning": "Followup status"
+                },
+                "value": "C1518340",
+                "scheme": {
+                  "designator": "UMLS"
+                },
+                "meaning": "No evidence of disease"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

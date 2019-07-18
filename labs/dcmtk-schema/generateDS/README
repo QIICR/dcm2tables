@@ -1,0 +1,4 @@
+Experiments with generateDS as a way to make python interface to the
+DCMTK XML schema of DICOM SR.
+
+Conclusion: the result is too complicated ...

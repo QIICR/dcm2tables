@@ -5,6 +5,25 @@ import copy
 
 class SRCDParser(DICOMParser):
 
+
+  def __init__(self, dcmName,rulesDictionary=None,tempPath=None, dcmqiPath=None, logger=None):
+    super(SRCDParser, self).__init__(dcmName, rulesDictionary, tempPath=tempPath, dcmqiPath=dcmqiPath, logger=logger)
+    # containers used and whether multiple items can be expected
+    self.childContainers = [
+      'ProblemList',
+      'SocialHistory',
+      'TumorStaging',
+      'MedicalHistory',
+      'Biopsy',
+      'Surgery',
+      'Radiotherapy',
+      'Chemotherapy',
+      'OriginalPathology',
+      'CervicalLymphNodeGroupExcision',
+      'DiseaseOutcome'
+    ]
+
+
   def parse(self):
     modality = self.dcm.Modality
     if modality == "SR":
@@ -12,19 +31,20 @@ class SRCDParser(DICOMParser):
         if self.dcm.ContentTemplateSequence[0].TemplateIdentifier == "QIICR_2000":
           self.readTopLevelAttributes("CompositeContext")
           self.readTopLevelAttributes("CD")
-          self.ClinicalDataParser("CD")
+          self.parseChildContainers()
         else:
           super(SRCDParser,self).parse()
     else:
       super(SRCDParser, self).parse()
 
-  def ClinicalDataParser(self, modality):
+  def parseChildContainers(self):
     completedContainers = []
+    # self.tables is inherited from DICOMParser
     self.tables['CD']=[self.tables['CD']]
-    for container in ('ProblemList','SocialHistory','TumorStaging','MedicalHistory','Biopsy','Surgery','Radiotherapy',
-          'Chemotherapy','OriginalPathology','CervicalLymphNodeGroupExcision','DiseaseOutcome'):
+    for container in self.childContainers:
       str(getattr(self, "readCD%s" % container)(container))
       completedContainers.append(container)
+      break
 
   def readCDProblemList(self, container):
     dataElement = getattr(self, "getCD%sContainer" % container)()
